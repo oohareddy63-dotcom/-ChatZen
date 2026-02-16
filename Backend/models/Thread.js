@@ -22,11 +22,33 @@ const ThreadSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
     title: {
         type: String,
         default: "New Chat"
     },
     messages: [MessageSchema],
+    // Analytics fields
+    topicCategory: {
+        type: String,
+        default: "general"
+    },
+    curiosityScore: {
+        type: Number,
+        default: 0
+    },
+    confidencePattern: {
+        type: Number,
+        default: 0
+    },
+    topicDrift: [{
+        timestamp: Date,
+        topic: String
+    }],
     createdAt: {
         type: Date,
         default: Date.now

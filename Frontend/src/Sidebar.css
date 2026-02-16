@@ -1,87 +1,284 @@
+/* ChatGPT-like Sidebar Styling */
 .sidebar {
-    background-color: #171717;
-    color: #b4b4b4;
+    background: #171717;
+    color: #ececf1;
     height: 100vh;
     width: 320px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    border-right: 1px solid #2d2d2d;
+    font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    transition: transform 0.3s ease;
 }
 
+/* Sidebar Header */
+.sidebarHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid #2d2d2d;
+}
 
-button {
+.newChatBtn {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: transparent;
-    border: solid 0.5px rgba(255, 255, 255, 0.5);
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid #4d4d4f;
+    color: #ececf1;
     cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.newChatBtn:hover {
+    background: #2d2d2d;
+    border-color: #5d5d5f;
 }
 
 .logo {
-    height: 25px;
-    width: 25px;
-    background-color: #fff;
+    height: 20px;
+    width: 20px;
+    background-color: #10a37f;
     border-radius: 50%;
     object-fit: cover;
 }
 
-button span {
+.closeSidebarBtn {
+    background: transparent;
+    border: none;
+    color: #8e8ea0;
+    cursor: pointer;
+    padding: 8px;
     font-size: 20px;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
 }
 
-button:hover {
-    background-color: rgba(180, 180, 180, 0.05);
+.closeSidebarBtn:hover {
+    background: #2d2d2d;
+    color: #ececf1;
 }
 
+/* History List */
 .history {
-    margin: 10px;
-    padding: 10px;
-    height: 100%;
+    margin: 8px 12px;
+    padding: 8px 0;
+    flex: 1;
+    overflow-y: auto;
+    list-style: none;
 }
 
 .history li {
-    list-style-type: none;
     cursor: pointer;
-    padding: 2px 5px;
-    margin-bottom: 0.3rem;
+    padding: 12px 16px;
+    margin-bottom: 2px;
     font-size: 14px;
-    border: solid 10px transparent;
+    border-radius: 8px;
     position: relative;
+    color: #ececf1;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .history li:hover {
-    background-color: rgba(180, 180, 180, 0.05);
-    border-radius: 10px;
+    background: #2d2d2d;
 }
 
-.sign {
-    padding: 10px;
-    margin: 10px;
+.history li.highlighted {
+    background: #2d2d2d;
+    font-weight: 500;
+}
+
+.history li i.fa-regular.fa-message {
+    color: #8e8ea0;
     font-size: 14px;
-    text-align: center;
-    border-top: solid 0.25px rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
 }
 
-.fa-trash {
+.threadTitle {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.deleteBtn {
     opacity: 0;
-    position: absolute;
-    right: 0;
+    color: #8e8ea0;
+    transition: opacity 0.2s, color 0.2s;
+    font-size: 12px;
+    padding: 4px;
+    cursor: pointer;
 }
 
-.history li:hover .fa-trash {
+.history li:hover .deleteBtn {
     opacity: 1;
-    color: #fff;
 }
 
-.fa-trash:hover {
+.deleteBtn:hover {
     color: #f87171 !important;
 }
 
-.highlighted {
-    background-color: rgba(180, 180, 180, 0.05);
-    border-radius: 10px;
+/* Sidebar Footer */
+.sidebarFooter {
+    padding: 12px;
+    border-top: 1px solid #2d2d2d;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dashboardBtn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid #10a37f;
+    color: #10a37f;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.dashboardBtn:hover {
+    background: #10a37f;
+    color: white;
+}
+
+.dashboardBtn i {
+    font-size: 16px;
+}
+
+.userProfile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #2d2d2d;
+}
+
+.userAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10a37f, #0d8c6d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 4px;
+}
+
+.userName {
+    font-size: 14px;
+    color: #ececf1;
+    font-weight: 500;
+}
+
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.logoutBtn:hover {
+    color: #ef4444;
+}
+
+/* Scrollbar styling */
+.history::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.history::-webkit-scrollbar-thumb {
+    background: #4d4d4f;
+    border-radius: 3px;
+}
+
+.history::-webkit-scrollbar-thumb:hover {
+    background: #5d5d5f;
+}
+
+/* Mobile Overlay */
+.sidebarOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        width: 280px;
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.mobileOpen {
+        transform: translateX(0);
+    }
+    
+    .sidebar.mobileClosed {
+        transform: translateX(-100%);
+    }
+    
+    .sidebarHeader {
+        padding: 10px;
+    }
+    
+    .newChatBtn {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .history {
+        margin: 6px 8px;
+    }
+    
+    .history li {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .deleteBtn {
+        opacity: 1;
+    }
 }

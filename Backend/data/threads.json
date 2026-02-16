@@ -1,0 +1,764 @@
+[
+  {
+    "threadId": "test-123",
+    "title": "Hello, this is a test message",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello, this is a test message",
+        "timestamp": "2026-02-12T13:06:22.095Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Demo mode activated: I received your message 'Hello, this is a test message'. Replace the demo API key with your real OpenAI key for actual AI responses.",
+        "timestamp": "2026-02-12T13:06:22.096Z"
+      },
+      {
+        "role": "user",
+        "content": "Hello, are you working?",
+        "timestamp": "2026-02-12T14:20:33.527Z"
+      },
+      {
+        "role": "assistant",
+        "content": "🤖 **Demo Mode**\n\nYou said: \"Hello, are you working?\"\n\nTo get real AI responses, please add a valid OpenAI API key to your `.env` file:\n`OPENAI_API_KEY=sk-your-actual-api-key`",
+        "timestamp": "2026-02-12T14:20:33.527Z"
+      },
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-15T07:19:51.932Z"
+      },
+      {
+        "role": "assistant",
+        "content": "**Merge Sort Algorithm**\n\nMerge sort is a popular sorting algorithm that uses the divide-and-conquer technique to sort arrays of elements. Here's a step-by-step explanation:\n\n### How Merge Sort Works\n\n1. **Divide**: If the array has only one element, it is already sorted.\n2. **Conquer**: Recursively divide the array into two halves until each subarray has only one element (base case).\n3. **Merge**: Compare the sorted subarrays and merge them into a single, sorted array.\n\n### Example Implementation in Python\n\n```python\ndef merge_sort(arr):\n    # Base case: If the array has only one element, return it as it's already sorted.\n    if len(arr) <= 1:\n        return arr\n\n    # Find the middle index to divide the array into two halves.\n    mid = len(arr) // 2\n\n    # Recursively sort the left and right subarrays.\n    left_half = merge_sort(arr[:mid])\n    right_half = merge_sort(arr[mid:])\n\n    # Merge the sorted subarrays into a single, sorted array.\n    return merge(left_half, right_half)\n\n\ndef merge(left, right):\n    merged = []\n    left_index = 0\n    right_index = 0\n\n    while left_index < len(left) and right_index < len(right):\n        if left[left_index] <= right[right_index]:\n            merged.append(left[left_index])\n            left_index += 1\n        else:\n            merged.append(right[right_index])\n            right_index += 1\n\n    # Append any remaining elements from the left or right arrays.\n    merged.extend(left[left_index:])\n    merged.extend(right[right_index:])\n\n    return merged\n\n\n# Example usage\narr = [64, 34, 25, 12, 22, 11, 90]\nsorted_arr = merge_sort(arr)\nprint(\"Sorted Array:\", sorted_arr)\n```\n\n### Time Complexity\n\nThe time complexity of merge sort is O(n log n), making it suitable for large datasets.\n\n### Space Complexity\n\nThe space complexity of merge sort is O(n), as we need to store the temporary subarrays during the merging process.",
+        "timestamp": "2026-02-15T07:19:51.932Z"
+      }
+    ],
+    "createdAt": "2026-02-12T13:06:22.095Z",
+    "updatedAt": "2026-02-15T07:19:51.932Z"
+  },
+  {
+    "threadId": "59566b80-0814-11f1-86f7-91527e041980",
+    "title": "merge sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-12T13:11:40.079Z"
+      },
+      {
+        "role": "assistant",
+        "content": "This is a test response. The app is working correctly! Add your OpenAI API key for real AI responses.",
+        "timestamp": "2026-02-12T13:11:40.081Z"
+      }
+    ],
+    "createdAt": "2026-02-12T13:11:40.079Z",
+    "updatedAt": "2026-02-12T13:11:40.081Z"
+  },
+  {
+    "threadId": "test-chatgpt-clone",
+    "title": "Hello! This is a test of the ChatGPT clone. How do...",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! This is a test of the ChatGPT clone. How does it work?",
+        "timestamp": "2026-02-12T13:44:30.948Z"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm a demo AI assistant. To get real responses, please add your OpenAI API key to the .env file.",
+        "timestamp": "2026-02-12T13:44:30.948Z"
+      }
+    ],
+    "createdAt": "2026-02-12T13:44:30.948Z",
+    "updatedAt": "2026-02-12T13:44:30.948Z"
+  },
+  {
+    "threadId": "mongodb-test-123",
+    "title": "Test MongoDB connection with real ChatGPT clone!",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Test MongoDB connection with real ChatGPT clone!",
+        "timestamp": "2026-02-12T13:55:24.495Z"
+      },
+      {
+        "role": "assistant",
+        "content": "This is a test response. The app is working correctly! Add your OpenAI API key for real AI responses.",
+        "timestamp": "2026-02-12T13:55:24.495Z"
+      }
+    ],
+    "createdAt": "2026-02-12T13:55:24.495Z",
+    "updatedAt": "2026-02-12T13:55:24.495Z"
+  },
+  {
+    "threadId": "real-ai-test",
+    "title": "Hello! Can you tell me a fun fact about space?",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Can you tell me a fun fact about space?",
+        "timestamp": "2026-02-12T14:04:33.534Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Demo mode activated: I received your message 'Hello! Can you tell me a fun fact about space?'. Replace the demo API key with your real OpenAI key for actual AI responses.",
+        "timestamp": "2026-02-12T14:04:33.534Z"
+      }
+    ],
+    "createdAt": "2026-02-12T14:04:33.534Z",
+    "updatedAt": "2026-02-12T14:04:33.534Z"
+  },
+  {
+    "threadId": "real-openai-test",
+    "title": "Hello! Tell me something interesting about artific...",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Tell me something interesting about artificial intelligence.",
+        "timestamp": "2026-02-12T14:05:20.237Z"
+      },
+      {
+        "role": "assistant",
+        "content": "This is a test response. The app is working correctly! Add your OpenAI API key for real AI responses.",
+        "timestamp": "2026-02-12T14:05:20.237Z"
+      }
+    ],
+    "createdAt": "2026-02-12T14:05:20.237Z",
+    "updatedAt": "2026-02-12T14:05:20.237Z"
+  },
+  {
+    "threadId": "real-ai-final-test",
+    "title": "What is the capital of France and tell me an inter...",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is the capital of France and tell me an interesting fact about it?",
+        "timestamp": "2026-02-12T14:05:46.424Z"
+      },
+      {
+        "role": "assistant",
+        "content": "This is a test response. The app is working correctly! Add your OpenAI API key for real AI responses.",
+        "timestamp": "2026-02-12T14:05:46.424Z"
+      }
+    ],
+    "createdAt": "2026-02-12T14:05:46.424Z",
+    "updatedAt": "2026-02-12T14:05:46.424Z"
+  },
+  {
+    "threadId": "final-ai-test",
+    "title": "Hello! Can you explain what machine learning is in...",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Can you explain what machine learning is in simple terms?",
+        "timestamp": "2026-02-12T14:06:48.233Z"
+      },
+      {
+        "role": "assistant",
+        "content": "This is a demo response. Your message was: Hello! Can you explain what machine learning is in simple terms?",
+        "timestamp": "2026-02-12T14:06:48.233Z"
+      }
+    ],
+    "createdAt": "2026-02-12T14:06:48.233Z",
+    "updatedAt": "2026-02-12T14:06:48.233Z"
+  },
+  {
+    "threadId": "85016150-081d-11f1-b757-05c522074e24",
+    "title": "merge sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-12T14:17:33.671Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Thanks for your message: \"merge sort\"\n\nThis is a demo response. Set up your OpenAI API key to unlock the full AI experience!",
+        "timestamp": "2026-02-12T14:17:33.671Z"
+      }
+    ],
+    "createdAt": "2026-02-12T14:17:33.671Z",
+    "updatedAt": "2026-02-12T14:17:33.671Z"
+  },
+  {
+    "threadId": "test-openai-123",
+    "title": "Hello, can you tell me a joke?",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello, can you tell me a joke?",
+        "timestamp": "2026-02-12T14:24:19.813Z"
+      },
+      {
+        "role": "assistant",
+        "content": "🤖 **Demo Mode**\n\nYou said: \"Hello, can you tell me a joke?\"\n\nTo get real AI responses, please add a valid OpenAI API key to your `.env` file:\n`OPENAI_API_KEY=sk-your-actual-api-key`",
+        "timestamp": "2026-02-12T14:24:19.813Z"
+      }
+    ],
+    "createdAt": "2026-02-12T14:24:19.813Z",
+    "updatedAt": "2026-02-12T14:24:19.813Z"
+  },
+  {
+    "threadId": "test-456",
+    "title": "Hello, tell me a short joke",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello, tell me a short joke",
+        "timestamp": "2026-02-12T14:27:06.356Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "timestamp": "2026-02-12T14:27:06.356Z"
+      }
+    ],
+    "createdAt": "2026-02-12T14:27:06.356Z",
+    "updatedAt": "2026-02-12T14:27:06.356Z"
+  },
+  {
+    "threadId": "fa911810-081e-11f1-b7e1-a1cfaad31cb5",
+    "title": "merge sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-12T14:27:44.787Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "timestamp": "2026-02-12T14:27:44.787Z"
+      }
+    ],
+    "createdAt": "2026-02-12T14:27:44.787Z",
+    "updatedAt": "2026-02-12T14:27:44.787Z"
+  },
+  {
+    "threadId": "f9d87240-0825-11f1-a928-4d8368b1700a",
+    "title": "merge sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-12T15:17:54.504Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+        "timestamp": "2026-02-12T15:17:54.504Z"
+      }
+    ],
+    "createdAt": "2026-02-12T15:17:54.504Z",
+    "updatedAt": "2026-02-12T15:17:54.504Z"
+  },
+  {
+    "threadId": "gemini-test-123",
+    "title": "Hello! Tell me a short joke about programming",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Tell me a short joke about programming",
+        "timestamp": "2026-02-12T16:19:11.519Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sorry, I'm having trouble connecting to the AI service. Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "timestamp": "2026-02-12T16:19:11.519Z"
+      },
+      {
+        "role": "user",
+        "content": "Hello! Tell me a short joke about programming",
+        "timestamp": "2026-02-12T16:19:57.790Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sorry, I'm having trouble connecting to the AI service. Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "timestamp": "2026-02-12T16:19:57.790Z"
+      }
+    ],
+    "createdAt": "2026-02-12T16:19:11.519Z",
+    "updatedAt": "2026-02-12T16:19:57.790Z"
+  },
+  {
+    "threadId": "gemini-test-456",
+    "title": "Hello! Tell me a short joke about programming",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Tell me a short joke about programming",
+        "timestamp": "2026-02-12T16:21:18.237Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sorry, I'm having trouble connecting to the AI service. Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "timestamp": "2026-02-12T16:21:18.237Z"
+      }
+    ],
+    "createdAt": "2026-02-12T16:21:18.237Z",
+    "updatedAt": "2026-02-12T16:21:18.237Z"
+  },
+  {
+    "threadId": "test-789",
+    "title": "Hello! Tell me a short joke",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Tell me a short joke",
+        "timestamp": "2026-02-12T16:21:51.758Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sorry, I'm having trouble connecting to the AI service. Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "timestamp": "2026-02-12T16:21:51.758Z"
+      }
+    ],
+    "createdAt": "2026-02-12T16:21:51.758Z",
+    "updatedAt": "2026-02-12T16:21:51.758Z"
+  },
+  {
+    "threadId": "test-999",
+    "title": "Hello! Tell me a short joke",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Tell me a short joke",
+        "timestamp": "2026-02-12T16:22:48.863Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sorry, I'm having trouble connecting to the AI service. Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent: [404 Not Found] models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "timestamp": "2026-02-12T16:22:48.863Z"
+      }
+    ],
+    "createdAt": "2026-02-12T16:22:48.863Z",
+    "updatedAt": "2026-02-12T16:22:48.863Z"
+  },
+  {
+    "threadId": "test-final",
+    "title": "Hello! Tell me a short joke",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Tell me a short joke",
+        "timestamp": "2026-02-12T16:23:32.414Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sorry, I'm having trouble connecting to the AI service. Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent: [404 Not Found] models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "timestamp": "2026-02-12T16:23:32.414Z"
+      }
+    ],
+    "createdAt": "2026-02-12T16:23:32.414Z",
+    "updatedAt": "2026-02-12T16:23:32.414Z"
+  },
+  {
+    "threadId": "test-v1",
+    "title": "Hello! Tell me a short joke",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Tell me a short joke",
+        "timestamp": "2026-02-12T16:24:39.582Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sorry, I'm having trouble connecting to the AI service. Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "timestamp": "2026-02-12T16:24:39.582Z"
+      }
+    ],
+    "createdAt": "2026-02-12T16:24:39.582Z",
+    "updatedAt": "2026-02-12T16:24:39.582Z"
+  },
+  {
+    "threadId": "test-rest",
+    "title": "Hello! Tell me a short joke",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Tell me a short joke",
+        "timestamp": "2026-02-12T16:25:59.382Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Error: models/gemini-1.0-pro is not found for API version v1, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "timestamp": "2026-02-12T16:25:59.382Z"
+      }
+    ],
+    "createdAt": "2026-02-12T16:25:59.382Z",
+    "updatedAt": "2026-02-12T16:25:59.382Z"
+  },
+  {
+    "threadId": "test-flash",
+    "title": "Hello! Tell me a short joke about programming",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Tell me a short joke about programming",
+        "timestamp": "2026-02-12T16:27:13.436Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. ",
+        "timestamp": "2026-02-12T16:27:13.436Z"
+      }
+    ],
+    "createdAt": "2026-02-12T16:27:13.436Z",
+    "updatedAt": "2026-02-12T16:27:13.436Z"
+  },
+  {
+    "threadId": "test-ollama",
+    "title": "Hello! Tell me a short joke",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Tell me a short joke",
+        "timestamp": "2026-02-12T16:30:34.678Z"
+      },
+      {
+        "role": "assistant",
+        "content": "🤖 **Demo Mode**\n\nYou said: \"Hello! Tell me a short joke\"\n\nTo get real AI responses, you can:\n\n1️⃣ **Install Ollama** (Recommended - Free & Private)\n   - Download: https://ollama.com\n   - Run: `ollama run llama3.2`\n   - Then restart this app\n\n2️⃣ **Add a Gemini API key**\n   - Get key: https://ai.google.dev\n   - Add to `.env`: GEMINI_API_KEY=your-key",
+        "timestamp": "2026-02-12T16:30:34.678Z"
+      },
+      {
+        "role": "user",
+        "content": "Explain what is mergesort algorithm",
+        "timestamp": "2026-02-15T07:14:05.455Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Mergesort Algorithm\n=====================\n\nMergesort is a popular sorting algorithm that uses the divide-and-conquer technique to sort elements in an array. It works by dividing the array into two halves, recursively sorting each half, and then merging the sorted halves back together.\n\nHow Mergesort Works\n--------------------\n\n1.  **Divide**: If the length of the array is more than 1 element, split it into two halves.\n2.  **Conquer**: Recursively apply the mergesort algorithm to each half until each sub-array contains a single element.\n3.  **Merge**: Compare elements from each sub-array and merge them back together in sorted order.\n\nMergesort Algorithm Steps\n---------------------------\n\n1.  Start with an array of unsorted data.\n2.  If the length of the array is more than 1, split it into two halves: left and right.\n3.  Recursively call mergesort on each half until each sub-array contains a single element.\n4.  Merge the sorted sub-arrays back together in sorted order.\n\nExample\n--------\n\nSuppose we have an unsorted array `arr = [5, 2, 8, 1, 9]`. We'll apply the mergesort algorithm as follows:\n\n*   Split into two halves: `[5, 2]` and `[8, 1, 9]`.\n*   Recursively sort each half:\n    *   `[5, 2]` -> `[2, 5]`\n    *   `[8, 1, 9]` -> `[1, 8, 9]`\n*   Merge the sorted halves: `[2, 5]` and `[1, 8, 9]`. The merged array is in sorted order: `[1, 2, 5, 8, 9]`.\n\nAdvantages\n------------\n\n*   **Efficient**: Mergesort has a time complexity of O(n log n), making it suitable for large datasets.\n*   **Stable**: Mergesort preserves the relative order of equal elements.\n\nDisadvantages\n--------------\n\n*   **Space Complexity**: Mergesort requires additional space to store the temporary sub-arrays, resulting in a space complexity of O(n).\n*   **Slow Performance for Small Arrays**: For small arrays, the overhead of recursive function calls and merging can lead to slower performance compared to other algorithms like insertion sort.\n\nImplementation\n--------------\n\nHere's an example implementation of mergesort in Python:\n\n```python\ndef mergesort(arr):\n    if len(arr) <= 1:\n        return arr\n\n    mid = len(arr) // 2\n    left_half = arr[:mid]\n    right_half = arr[mid:]\n\n    left_half = mergesort(left_half)\n    right_half = mergesort(right_half)\n\n    return merge(left_half, right_half)\n\n\ndef merge(left, right):\n    merged = []\n    left_index = 0\n    right_index = 0\n\n    while left_index < len(left) and right_index < len(right):\n        if left[left_index] <= right[right_index]:\n            merged.append(left[left_index])\n            left_index += 1\n        else:\n            merged.append(right[right_index])\n            right_index += 1\n\n    merged.extend(left[left_index:])\n    merged.extend(right[right_index:])\n\n    return merged\n\n# Example usage\narr = [5, 2, 8, 1, 9]\nsorted_arr = mergesort(arr)\nprint(sorted_arr)  # Output: [1, 2, 5, 8, 9]\n```\n\nThis implementation demonstrates the basic steps of mergesort and includes a `merge` function to combine sorted sub-arrays.",
+        "timestamp": "2026-02-15T07:14:05.456Z"
+      }
+    ],
+    "createdAt": "2026-02-12T16:30:34.678Z",
+    "updatedAt": "2026-02-15T07:14:05.456Z"
+  },
+  {
+    "threadId": "9b5d4730-0830-11f1-b43b-ab357fb39792",
+    "title": "merge sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-12T16:33:59.647Z"
+      },
+      {
+        "role": "assistant",
+        "content": "🤖 **Demo Mode**\n\nYou said: \"merge sort\"\n\nTo get real AI responses, you can:\n\n1️⃣ **Install Ollama** (Recommended - Free & Private)\n   - Download: https://ollama.com\n   - Run: `ollama run llama3.2`\n   - Then restart this app\n\n2️⃣ **Add a Gemini API key**\n   - Get key: https://ai.google.dev\n   - Add to `.env`: GEMINI_API_KEY=your-key",
+        "timestamp": "2026-02-12T16:33:59.647Z"
+      }
+    ],
+    "createdAt": "2026-02-12T16:33:59.647Z",
+    "updatedAt": "2026-02-12T16:33:59.647Z"
+  },
+  {
+    "threadId": "e9c92630-0891-11f1-8aa0-cfbef62f2b3d",
+    "title": "merge sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-13T04:10:32.146Z"
+      },
+      {
+        "role": "assistant",
+        "content": "🤖 **Demo Mode**\n\nYou said: \"merge sort\"\n\nTo get real AI responses, you can:\n\n1️⃣ **Install Ollama** (Recommended - Free & Private)\n   - Download: https://ollama.com\n   - Run: `ollama run llama3.2`\n   - Then restart this app\n\n2️⃣ **Add a Gemini API key**\n   - Get key: https://ai.google.dev\n   - Add to `.env`: GEMINI_API_KEY=your-key",
+        "timestamp": "2026-02-13T04:10:32.146Z"
+      }
+    ],
+    "createdAt": "2026-02-13T04:10:32.146Z",
+    "updatedAt": "2026-02-13T04:10:32.146Z"
+  },
+  {
+    "threadId": "03781ed0-0a3e-11f1-bdbf-0bacd2899ca3",
+    "title": "mergesort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "mergesort",
+        "timestamp": "2026-02-15T07:16:55.903Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Mergesort is a popular sorting algorithm that uses the divide-and-conquer technique to sort lists of elements. Here's an overview of how it works:\n\n**How Mergesort Works**\n\n1. **Divide**: If the input list has only one element, it is already sorted, so return it as is.\n2. **Conquer**: Split the input list into two halves, recursively sorting each half.\n3. **Merge**: Compare the two sorted halves and merge them into a single, sorted list.\n\n**Mergesort Algorithm**\n\nHere's a step-by-step explanation of the Mergesort algorithm:\n\n1. `arr` is the input array to be sorted\n2. `mid` is the index that splits the array into two halves\n3. Recursively call `mergesort(arr, mid)` on both halves\n4. Initialize an empty list `temp` to store the merged result\n5. Compare elements from both halves and add the smaller element to `temp`\n6. Repeat step 5 until all elements have been merged\n7. Return the sorted array\n\n**Pseudocode**\n\nHere's a pseudocode implementation of Mergesort:\n```\nfunction mergesort(arr, mid)\n  if len(arr) <= 1 then return arr\n  left_half = arr[0:mid]\n  right_half = arr[mid+1:]\n  left_sorted = mergesort(left_half, (mid - 1)/2)\n  right_sorted = mergesort(right_half, (mid + 1)/2)\n  temp = []\n  while len(left_sorted) > 0 and len(right_sorted) > 0 then\n    if left_sorted[0] <= right_sorted[0] then\n      temp.append(left_sorted[0])\n      remove left_sorted[0]\n    else\n      temp.append(right_sorted[0])\n      remove right_sorted[0]\n  end while\n  return [temp] + left_sorted + right_sorted\n```\n**Example Use Case**\n\nSuppose we have the following input array: `[5, 2, 8, 1, 4]`\n\nWe would recursively split this array into two halves until each half has only one element. The sorted array would then be merged using the comparison and insertion steps outlined above.\n\nHere's an example of how Mergesort would sort the input array:\n\n* Split `[5, 2, 8, 1, 4]` into `[5, 2]` and `[8, 1, 4]`\n* Recursively split `[5, 2]` into `[2]` and `[5]`, and `[8, 1, 4]` into `[1, 4]` and `[8]`\n* Merge the two sorted halves to produce `[1, 2, 4, 5]`\n* Recursively split `[8]` into `[8]`\n\nThe final sorted array is `[1, 2, 4, 5, 8]`.\n\n**Time and Space Complexity**\n\nMergesort has a time complexity of O(n log n) in the worst case, making it one of the most efficient sorting algorithms. However, it requires additional space to store the merged result.\n\nThe space complexity is O(n), as we need to create temporary arrays during the merging process.\n\n**Conclusion**\n\nMergesort is a popular and efficient sorting algorithm that uses the divide-and-conquer technique to sort lists of elements. While it has some disadvantages compared to other algorithms like Quicksort, its stability and efficiency make it a great choice for many applications.",
+        "timestamp": "2026-02-15T07:16:55.903Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:16:55.903Z",
+    "updatedAt": "2026-02-15T07:16:55.903Z"
+  },
+  {
+    "threadId": "375a7040-0a3e-11f1-b735-790f9e4ebf70",
+    "title": "merge sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-15T07:18:45.518Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Mergesort is a popular sorting algorithm that uses the divide-and-conquer technique to sort elements in an array. Here's a step-by-step guide on how Mergesort works:\n\n**How Mergesort Works**\n\n1. **Divide**: Take an array and split it into two halves until each subarray contains only one element.\n2. **Conquer**: Recursively apply the Mergesort algorithm to each subarray.\n3. **Merge**: Merge the sorted subarrays back together in a way that preserves their sorted order.\n\n**Mergesort Algorithm**\n\nHere's a step-by-step outline of the Mergesort algorithm:\n\n1. If the input array has 0 or 1 elements, return it as it is already sorted.\n2. Find the middle index `mid` of the array and split it into two halves: `left` and `right`.\n3. Recursively apply the Mergesort algorithm to each half, sorting them individually.\n4. Compare the first element of the `left` subarray with the first element of the `right` subarray.\n5. If the first element of `left` is smaller, copy it to the beginning of the merged array and add all remaining elements from `left`.\n6. Otherwise, copy the first element of `right` to the beginning of the merged array and add all remaining elements from `right`.\n7. Repeat steps 4-6 until both subarrays are empty.\n8. Return the fully merged sorted array.\n\n**Example**\n\nSuppose we want to sort the following array using Mergesort:\n\n `[5, 2, 8, 1, 9]`\n\nHere's how the algorithm would work:\n\n1. Divide the array into two halves: `[5, 2]` and `[8, 1, 9]`.\n2. Recursively apply Mergesort to each half:\n * `[5, 2]`: split into `[2, 5]`, sort individually, then merge back together.\n * `[8, 1, 9]`: split into `[1, 8, 9]`, sort individually, then merge back together.\n3. Merge the sorted halves: compare `2` and `1`, copy `1` to the beginning of the merged array, add remaining elements from both subarrays.\n\nThe final sorted array is: `[1, 2, 5, 8, 9]`\n\n**Code Implementation**\n\nHere's a simple implementation of Mergesort in Python:\n```python\ndef mergesort(arr):\n    if len(arr) <= 1:\n        return arr\n\n    mid = len(arr) // 2\n    left_half = arr[:mid]\n    right_half = arr[mid:]\n\n    left_half = mergesort(left_half)\n    right_half = mergesort(right_half)\n\n    merged = []\n    while len(left_half) > 0 and len(right_half) > 0:\n        if left_half[0] <= right_half[0]:\n            merged.append(left_half.pop(0))\n        else:\n            merged.append(right_half.pop(0))\n\n    merged.extend(left_half)\n    merged.extend(right_half)\n\n    return merged\n```\nThis implementation uses a simple recursive approach to split the array into two halves, sort them individually, and then merge them back together.\n\n**Time Complexity**\n\nThe time complexity of Mergesort is O(n log n), making it one of the most efficient sorting algorithms. This is because the algorithm divides the array in half at each step, reducing the number of comparisons needed to sort the entire array.\n\n**Space Complexity**\n\nThe space complexity of Mergesort is O(n), as the algorithm requires additional memory to store the merged arrays during the merging process.",
+        "timestamp": "2026-02-15T07:18:45.518Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:18:45.518Z",
+    "updatedAt": "2026-02-15T07:18:45.518Z"
+  },
+  {
+    "threadId": "289aff60-0a3f-11f1-8022-21a7e73b85dc",
+    "title": "selection sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "selection sort",
+        "timestamp": "2026-02-15T07:24:50.344Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Selection Sort\n================\n\nSelection sort is a simple sorting algorithm that works by repeatedly finding the minimum element from the unsorted part of the array and swapping it with the first unsorted element.\n\nHow it Works\n-------------\n\n1. The algorithm starts by considering the first element as the minimum.\n2. It then scans through the rest of the array to find the minimum value.\n3. Once the minimum value is found, it swaps this value with the first unsorted element.\n4. This process continues until the entire array is sorted.\n\nAlgorithm\n---------\n\nHere is a step-by-step example of how selection sort works:\n\nSuppose we have an array `arr` = `[64, 25, 12, 22, 11]`.\n\n1. The algorithm starts by considering the first element as the minimum (`arr[0] = 64`).\n2. It then scans through the rest of the array to find the minimum value (`arr[1] = 25`, `arr[2] = 12`, etc.).\n3. Once it finds the minimum value (`arr[4] = 11`), it swaps this value with the first unsorted element (`arr[0] = 11`).\n4. The algorithm then repeats steps 2-3 until the entire array is sorted.\n\nHere's a step-by-step breakdown of how the sorting happens:\n\n1. `arr[0] = 64`, `arr[1] = 25`\n   - Swap: `arr[0] = arr[1] = 25`\n\n   `arr` = `[25, 64, 12, 22, 11]`\n\n2. `arr[0] = 25`, `arr[1] = 64`\n   - Find next min in unsorted part: `arr[4] = 11`\n   - Swap: `arr[0] = arr[4] = 11` (move to the next element)\n\n   `arr` = `[11, 25, 12, 22, 64]`\n\n3. Repeat steps 2-3 until sorted.\n\nPseudocode\n------------\n\nHere is a pseudocode representation of the selection sort algorithm:\n```python\ndef selection_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        # Find the minimum element in unsorted part\n        min_idx = i\n        for j in range(i+1, n):\n            if arr[j] < arr[min_idx]:\n                min_idx = j\n\n        # Swap the found minimum element with the first element of unsorted part\n        arr[i], arr[min_idx] = arr[min_idx], arr[i]\n    return arr\n```\n\nExample Use Case\n-----------------\n\nHere's an example use case in Python:\n```python\narr = [64, 25, 12, 22, 11]\nprint(\"Original array:\", arr)\n\nsorted_arr = selection_sort(arr)\nprint(\"Sorted array:\", sorted_arr)\n```\nOutput:\n\n```\nOriginal array: [64, 25, 12, 22, 11]\nSorted array: [11, 12, 22, 25, 64]\n```",
+        "timestamp": "2026-02-15T07:24:50.344Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:24:50.344Z",
+    "updatedAt": "2026-02-15T07:24:50.344Z"
+  },
+  {
+    "threadId": "3c407270-0a3f-11f1-91c7-21cbbb7bd18d",
+    "title": "selection sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "selection sort",
+        "timestamp": "2026-02-15T07:26:09.978Z"
+      },
+      {
+        "role": "assistant",
+        "content": "**Selection Sort Algorithm**\n\nSelection sort is a simple sorting algorithm that works by repeatedly finding the minimum element from the unsorted part of the list and putting it at the beginning. The algorithm maintains two subarrays in a given array:\n\n1. The subarray which is already sorted.\n2. Remaining subarray which is unsorted.\n\n**Step-by-Step Process:**\n\n1. Find the minimum element in the unsorted subarray.\n2. Swap the found minimum element with the first element of the unsorted subarray.\n3. Move to the next element in the unsorted subarray and repeat step 1.\n4. Continue this process until the entire array is sorted.\n\n**Example:**\n\nSuppose we have an array `arr` = `[64, 25, 12, 22, 11]`\n\n1. First iteration: Find the minimum element in the array (`11`), swap it with the first element (`64`).\n   So, `arr` becomes `[11, 25, 12, 22, 64]`\n2. Second iteration: Find the minimum element in the remaining unsorted subarray (`12`), swap it with the second element (`25`).\n   So, `arr` becomes `[11, 12, 25, 22, 64]`\n3. Third iteration: Find the minimum element in the remaining unsorted subarray (`22`), swap it with the third element (`25`).\n   So, `arr` becomes `[11, 12, 22, 25, 64]`\n\n**Code Implementation (Python):**\n\n```python\ndef selection_sort(arr):\n    for i in range(len(arr)):\n        # Initialize the minimum index\n        min_index = i\n        \n        # Find the minimum element in the unsorted subarray\n        for j in range(i+1, len(arr)):\n            if arr[j] < arr[min_index]:\n                min_index = j\n                \n        # Swap the found minimum element with the first element of the unsorted subarray\n        arr[i], arr[min_index] = arr[min_index], arr[i]\n        \n    return arr\n\n# Example usage:\narr = [64, 25, 12, 22, 11]\nprint(\"Original array:\", arr)\nprint(\"Sorted array:\", selection_sort(arr))\n```\n\n**Time Complexity:** O(n^2)\n\n**Space Complexity:** O(1)",
+        "timestamp": "2026-02-15T07:26:09.978Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:26:09.978Z",
+    "updatedAt": "2026-02-15T07:26:09.978Z"
+  },
+  {
+    "threadId": "d2a80480-0a3f-11f1-8020-0b7b154680cc",
+    "title": "selection sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "selection sort",
+        "timestamp": "2026-02-15T07:29:19.828Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Selection Sort\n================\n\nSelection sort is a simple sorting algorithm that works by repeatedly finding the minimum element from the unsorted part of the list and swapping it with the first unsorted element.\n\nAlgorithm\n----------\n\nHere are the steps involved in selection sort:\n\n1.  Start from the first element of the list.\n2.  Find the minimum element in the rest of the list (from the second element to the end).\n3.  Swap the found minimum element with the current element.\n4.  Move to the next element and repeat the process until the entire list is sorted.\n\nExample\n-------\n\nLet's consider a list of integers: `[64, 25, 12, 22, 11]`.\n\n1.  Start from the first element (`64`).\n2.  Find the minimum element in the rest of the list (`[25, 12, 22, 11]`). The minimum element is `11`.\n3.  Swap `64` with `11`. The list becomes `[11, 25, 12, 22, 64]`.\n4.  Move to the next element and repeat the process until the entire list is sorted.\n\nAfter several iterations, the final sorted list will be: `[11, 12, 22, 25, 64]`.\n\nCode Implementation\n-------------------\n\nHere's a Python implementation of selection sort:\n\n```python\ndef selection_sort(arr):\n    \"\"\"\n    Sorts an array using the selection sort algorithm.\n\n    Args:\n        arr (list): The list to be sorted.\n\n    Returns:\n        list: The sorted list.\n    \"\"\"\n\n    # Traverse through all array elements\n    for i in range(len(arr)):\n        \n        # Initialize minimum element as current element\n        min_idx = i\n        \n        # Find the minimum element in the unsorted part of the list\n        for j in range(i+1, len(arr)):\n            if arr[j] < arr[min_idx]:\n                min_idx = j\n                \n        # Swap the found minimum element with the current element\n        arr[i], arr[min_idx] = arr[min_idx], arr[i]\n        \n    return arr\n\n# Example usage:\narr = [64, 25, 12, 22, 11]\nprint(\"Original array:\", arr)\nprint(\"Sorted array:\", selection_sort(arr))\n```\n\nTime Complexity\n--------------\n\nThe time complexity of selection sort is:\n\n*   Best-case: O(n^2) when the input list is already sorted.\n*   Average-case: O(n^2) for random inputs.\n*   Worst-case: O(n^2) when the input list is reverse-sorted.\n\nSpace Complexity\n----------------\n\nThe space complexity of selection sort is O(1), as it only requires a single additional memory location to store the temporary swapped element.",
+        "timestamp": "2026-02-15T07:29:19.828Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:29:19.828Z",
+    "updatedAt": "2026-02-15T07:29:19.828Z"
+  },
+  {
+    "threadId": "test-debug",
+    "title": "merge sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-15T07:32:33.134Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Mergesort is a divide-and-conquer algorithm that splits an input array into two halves, recursively sorts each half, and then merges the two sorted halves.\n\n**How Mergesort Works:**\n\n1. **Divide:** If the array has only one element, it is already sorted, so return it.\n2. **Conquer:** Divide the array into two halves until each sub-array has only one element (or elements).\n3. **Merge:** Compare the two halves and merge them in sorted order.\n\n**Mergesort Algorithm:**\n\n1. If the length of the array `n` is 0 or 1, return the original array.\n2. Find the middle index `m` such that `n = 2m`.\n3. Divide the array into two halves:\n   - Left half: `arr[0..m-1]`\n   - Right half: `arr[m..n-1]`\n4. Recursively call mergesort on both halves.\n5. Merge the two sorted halves:\n\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n\n    mid = len(arr) // 2\n    left_half = arr[:mid]\n    right_half = arr[mid:]\n\n    left_half = merge_sort(left_half)\n    right_half = merge_sort(right_half)\n\n    return merge(left_half, right_half)\n\n\ndef merge(left, right):\n    result = []\n    while len(left) > 0 and len(right) > 0:\n        if left[0] <= right[0]:\n            result.append(left.pop(0))\n        else:\n            result.append(right.pop(0))\n\n    result.extend(left)\n    result.extend(right)\n\n    return result\n```\n\n**Example Use Case:**\n\n```python\narr = [5, 2, 8, 3, 1, 6, 4]\nsorted_arr = merge_sort(arr)\nprint(sorted_arr)  # Output: [1, 2, 3, 4, 5, 6, 8]\n```\n\n**Time Complexity:** O(n log n)\n\n**Space Complexity:** O(n)\n\nMergesort is a popular sorting algorithm due to its efficiency and stability. However, it requires extra memory for the recursive calls and merging process, which can be a concern for large datasets.\n\n**Advantages:**\n\n* Efficient: Mergesort has an average time complexity of O(n log n), making it suitable for large datasets.\n* Stable: Mergesort preserves the relative order of equal elements.\n* Scalable: Mergesort can handle large datasets with ease.\n\n**Disadvantages:**\n\n* Memory-intensive: Mergesort requires extra memory for recursive calls and merging process.\n* Slow startup: The algorithm's recursive nature can lead to slower startup times.\n\nOverall, mergesort is a reliable and efficient sorting algorithm that excels in many scenarios.",
+        "timestamp": "2026-02-15T07:32:33.134Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:32:33.134Z",
+    "updatedAt": "2026-02-15T07:32:33.134Z"
+  },
+  {
+    "threadId": "cc517070-0a40-11f1-b37e-0121fd2eb51b",
+    "title": "merge sort'",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort'",
+        "timestamp": "2026-02-15T07:36:26.173Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Mergesort is a popular sorting algorithm that uses the divide-and-conquer technique to sort arrays of elements. Here's an overview and implementation of mergesort:\n\n**How Mergesort Works**\n\n1. **Divide**: If the input array has only one element, it's already sorted, so return it.\n2. **Conquer**: Divide the array into two halves until each subarray has one or zero elements.\n3. **Merge**: Compare the two halves and merge them into a single sorted array.\n\n**Mergesort Algorithm**\n\nHere are the steps to implement mergesort:\n\n1. Find the middle index of the array.\n2. Divide the array into two halves: left and right.\n3. Recursively apply mergesort to both halves until each subarray has one or zero elements.\n4. Merge the sorted subarrays into a single sorted array.\n\n**Mergesort Pseudocode**\n\n```\nfunction mergesort(arr):\n  if len(arr) <= 1:\n    return arr\n  mid = floor(len(arr) / 2)\n  left = mergesort(arr[:mid])\n  right = mergesort(arr[mid:])\n  return merge(left, right)\n\nfunction merge(left, right):\n  result = []\n  while len(left) > 0 and len(right) > 0:\n    if left[0] <= right[0]:\n      result.append(left.shift())\n    else:\n      result.append(right.shift())\n  result.extend(left)\n  result.extend(right)\n  return result\n```\n\n**Example Implementation**\n\nHere's an implementation of mergesort in Python:\n\n```python\ndef mergesort(arr):\n  if len(arr) <= 1:\n    return arr\n  mid = len(arr) // 2\n  left = mergesort(arr[:mid])\n  right = mergesort(arr[mid:])\n  return merge(left, right)\n\ndef merge(left, right):\n  result = []\n  while len(left) > 0 and len(right) > 0:\n    if left[0] <= right[0]:\n      result.append(left.pop(0))\n    else:\n      result.append(right.pop(0))\n  result.extend(left)\n  result.extend(right)\n  return result\n\n# Example usage\narr = [64, 34, 25, 12, 22, 11, 90]\nsorted_arr = mergesort(arr)\nprint(sorted_arr)  # Output: [11, 12, 22, 25, 34, 64, 90]\n```\n\n**Time Complexity**\n\nMergesort has a time complexity of O(n log n), making it suitable for large datasets. However, it requires additional space for the merge step, which can be O(n) in the worst case.\n\n**Space Complexity**\n\nThe space complexity of mergesort is O(n), as we need to create temporary arrays for the merge step.",
+        "timestamp": "2026-02-15T07:36:26.173Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:36:26.173Z",
+    "updatedAt": "2026-02-15T07:36:26.173Z"
+  },
+  {
+    "threadId": "f2aaa390-0a40-11f1-bc24-41277b75d620",
+    "title": "merge sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-15T07:37:51.080Z"
+      },
+      {
+        "role": "assistant",
+        "content": "**Merging Sort Algorithm**\n\nMerging sort is a popular sorting algorithm that uses the divide-and-conquer technique to sort elements in an array. Here's a step-by-step explanation of how it works:\n\n### Steps\n\n1. **Divide**: Divide the input array into two halves until each subarray contains only one element.\n2. **Conquer**: Recursively apply the merging sort algorithm to each subarray.\n3. **Merge**: Merge the sorted subarrays back together in a way that preserves their relative order.\n\n**Pseudocode**\n\n```markdown\nMergingSort(arr):\n  // If arr has only one element, it's already sorted\n  if length(arr) <= 1:\n    return arr\n\n  // Divide into two halves\n  mid = length(arr) / 2\n  left = arr[0..mid-1]\n  right = arr[mid..length(arr)]\n\n  // Recursively sort both halves\n  left = MergingSort(left)\n  right = MergingSort(right)\n\n  // Merge the sorted halves back together\n  return merge(left, right)\n\nmerge(left, right):\n  result = []\n  while length(left) > 0 and length(right) > 0:\n    if left[0] <= right[0]:\n      result.append(left[0])\n      remove first element from left array\n    else:\n      result.append(right[0])\n      remove first element from right array\n\n  // Add any remaining elements from either array\n  result.extend(left)\n  result.extend(right)\n\n  return result\n```\n\n**Example Usage**\n\n```python\ndef merging_sort(arr):\n    if len(arr) <= 1:\n        return arr\n\n    mid = len(arr) // 2\n    left = arr[:mid]\n    right = arr[mid:]\n\n    left = merging_sort(left)\n    right = merging_sort(right)\n\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    while len(left) > 0 and len(right) > 0:\n        if left[0] <= right[0]:\n            result.append(left.pop(0))\n        else:\n            result.append(right.pop(0))\n\n    result.extend(left)\n    result.extend(right)\n\n    return result\n\n# Example usage\narr = [5, 2, 8, 3, 1, 6, 4]\nsorted_arr = merging_sort(arr)\nprint(sorted_arr)  # Output: [1, 2, 3, 4, 5, 6, 8]\n```\n\n**Time Complexity**\n\nThe time complexity of merging sort is:\n\n* Best-case: O(n log n)\n* Average-case: O(n log n)\n* Worst-case: O(n log n)\n\nThis makes it a very efficient sorting algorithm for large datasets.",
+        "timestamp": "2026-02-15T07:37:51.080Z"
+      },
+      {
+        "role": "user",
+        "content": "selection sort",
+        "timestamp": "2026-02-15T07:41:06.837Z"
+      },
+      {
+        "role": "assistant",
+        "content": "**Selection Sort Algorithm**\n\nSelection sort is a simple sorting algorithm that works by repeatedly finding the minimum element from the unsorted part of the array and swapping it with the first unsorted element.\n\n### Steps\n\n1. **Start**: Begin at the beginning of the array.\n2. **Find Minimum**: Find the minimum element in the unsorted part of the array.\n3. **Swap**: Swap the found minimum element with the first element of the unsorted part.\n4. **Repeat**: Repeat steps 2 and 3 until the entire array is sorted.\n\n**Pseudocode**\n\n```markdown\nSelectionSort(arr):\n  for i from 0 to length(arr) - 1:\n    min_index = i\n    for j from i + 1 to length(arr) - 1:\n      if arr[j] < arr[min_index]:\n        min_index = j\n\n    // Swap the found minimum element with the first unsorted element\n    swap arr[i], arr[min_index]\n\n  return arr\n```\n\n**Swap Function**\n\n```markdown\nswap(a, b):\n  temp = a\n  a = b\n  b = temp\n```\n\n**Example Usage**\n\n```python\ndef selection_sort(arr):\n    for i in range(len(arr)):\n        min_index = i\n        for j in range(i + 1, len(arr)):\n            if arr[j] < arr[min_index]:\n                min_index = j\n\n        # Swap the found minimum element with the first unsorted element\n        arr[i], arr[min_index] = arr[min_index], arr[i]\n\n    return arr\n\n# Example usage\narr = [64, 25, 12, 22, 11]\nsorted_arr = selection_sort(arr)\nprint(sorted_arr)  # Output: [11, 12, 22, 25, 64]\n```\n\n**Time Complexity**\n\nThe time complexity of selection sort is:\n\n* Best-case: O(n^2)\n* Average-case: O(n^2)\n* Worst-case: O(n^2)\n\nThis makes it less efficient than other sorting algorithms like quicksort or mergesort for large datasets.\n\n### Optimizations\n\nThere are two optimizations that can be made to selection sort:\n\n1. **Use Insertion Sort**: For small arrays, insertion sort is faster.\n2. **Use Heap Sort**: After finding the minimum element in the unsorted part of the array, heap sort can be used to sort the rest of the array.\n\n**Comparison with Other Sorting Algorithms**\n\n| Algorithm | Best-case | Average-case | Worst-case |\n| --- | --- | --- | --- |\n| Selection Sort | O(n^2) | O(n^2) | O(n^2) |\n| Insertion Sort | O(n^2) | O(n^2) | O(n^2) |\n| Quick Sort | O(n log n) | O(n log n) | O(n log n) |\n| Merge Sort | O(n log n) | O(n log n) | O(n log n) |\n\nNote: The best-case and average-case complexities assume that the input array is already sorted or has a specific structure.",
+        "timestamp": "2026-02-15T07:41:06.837Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:37:51.080Z",
+    "updatedAt": "2026-02-15T07:41:06.837Z"
+  },
+  {
+    "threadId": "test-1",
+    "title": "hello",
+    "messages": [
+      {
+        "role": "user",
+        "content": "hello",
+        "timestamp": "2026-02-15T07:38:01.013Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! How can I assist you today?",
+        "timestamp": "2026-02-15T07:38:01.013Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:38:01.013Z",
+    "updatedAt": "2026-02-15T07:38:01.013Z"
+  },
+  {
+    "threadId": "6a3bc510-0a41-11f1-a771-cbcbd852f112",
+    "title": "selection sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "selection sort",
+        "timestamp": "2026-02-15T07:42:06.016Z"
+      },
+      {
+        "role": "assistant",
+        "content": "**Selection Sort Algorithm**\n=====================================\n\nSelection sort is a simple sorting algorithm that works by repeatedly finding the minimum element from the unsorted part of the list and putting it at the beginning.\n\n**How it Works**\n-----------------\n\n1. The algorithm starts by considering the first element as the smallest.\n2. It then compares each of the remaining elements with the current smallest one and swaps them if necessary.\n3. This process continues until the entire array is sorted.\n\n**Code Implementation**\n------------------------\n\nHere's an implementation of selection sort in Python:\n\n```python\ndef selection_sort(arr):\n    \"\"\"\n    Sorts an array using the selection sort algorithm.\n\n    Args:\n        arr (list): The input array to be sorted.\n\n    Returns:\n        list: The sorted array.\n    \"\"\"\n\n    # Traverse through all array elements\n    for i in range(len(arr)):\n        \n        # Initialize the minimum element's index\n        min_idx = i\n        \n        # Find the minimum element in remaining unsorted array\n        for j in range(i+1, len(arr)):\n            if arr[j] < arr[min_idx]:\n                min_idx = j\n                \n        # Swap the found minimum element with the first element of unsorted array        \n        arr[i], arr[min_idx] = arr[min_idx], arr[i]\n    \n    return arr\n\n# Example usage:\narr = [64, 25, 12, 22, 11]\nprint(\"Original array:\", arr)\nprint(\"Sorted array:\", selection_sort(arr))\n```\n\n**Time and Space Complexity**\n-----------------------------\n\n*   **Time complexity:** O(n^2), where n is the number of elements in the input array.\n*   **Space complexity:** O(1), as it only uses a constant amount of space.\n\n**Advantages and Disadvantages**\n--------------------------------\n\nAdvantages:\n\n*   Simple to implement\n*   In-place sorting, meaning it doesn't require extra memory\n\nDisadvantages:\n\n*   Not suitable for large datasets due to its high time complexity\n*   May not perform well on partially sorted or nearly sorted data",
+        "timestamp": "2026-02-15T07:42:06.016Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:42:06.016Z",
+    "updatedAt": "2026-02-15T07:42:06.016Z"
+  },
+  {
+    "threadId": "a8bdd080-0a41-11f1-808a-854c1d75966c",
+    "title": "selcection sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "selcection sort",
+        "timestamp": "2026-02-15T07:43:36.460Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Selection Sort is a simple sorting algorithm that works by repeatedly finding the minimum element from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array:\n\n1) The subarray which is already sorted.\n2) Remaining subarray which is unsorted.\n\nIn selection sort, we iterate through the array one by one and find the smallest (or largest depending on the sorting order) element from the unsorted array and swap it with the first element of the unsorted array.\n\nHere are the steps for Selection Sort:\n\n1. Start from the first element of the unsorted array.\n2. Compare current element with all elements to its right.\n3. If a smaller element is found, replace the current element with that smaller element.\n4. Move to the next element and repeat steps 2-3 until the end of the array is reached.\n\nHere's a step-by-step example of how Selection Sort works on an array: `[5, 2, 8, 1, 9]`\n\n1. Start from the first element (5). Compare it with elements to its right (2, 8, 1, 9).\n   - The smallest element is 1. Swap 5 and 1.\n   Array now: `[1, 2, 8, 5, 9]`\n2. Start from the first unsorted element (1). Compare it with elements to its right (2, 8, 5, 9).\n   - The smallest element is still 1. No swap needed.\n3. Move to the next unsorted element (2). Compare it with remaining elements (8, 5, 9).\n   - The smallest element is 2. Swap 2 and 2.\n4. Repeat this process until all elements are sorted.\n\nThe final sorted array will be: `[1, 1, 2, 5, 9]`\n\nHowever, it's worth noting that the correct implementation of Selection Sort should swap the current element with the smallest element found in the unsorted part, not just leave it as is. The corrected algorithm would look like this:\n\n```python\ndef selection_sort(arr):\n    for i in range(len(arr)):\n        # Find the index of the minimum element in the unsorted part\n        min_idx = i\n        for j in range(i+1, len(arr)):\n            if arr[j] < arr[min_idx]:\n                min_idx = j\n\n        # Swap the current element with the smallest element found\n        arr[i], arr[min_idx] = arr[min_idx], arr[i]\n    return arr\n```\n\nThis corrected implementation ensures that the algorithm always selects the correct minimum element from the unsorted part and swaps it with the first element of the unsorted array, effectively sorting the entire array.",
+        "timestamp": "2026-02-15T07:43:36.460Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:43:36.460Z",
+    "updatedAt": "2026-02-15T07:43:36.460Z"
+  },
+  {
+    "threadId": "39906640-0a42-11f1-9ba2-e30a074a4f5b",
+    "title": "selection sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "selection sort",
+        "timestamp": "2026-02-15T07:46:40.381Z"
+      },
+      {
+        "role": "assistant",
+        "content": "**Selection Sort Algorithm**\n\nSelection sort is a simple sorting algorithm that works by repeatedly finding the minimum element from the unsorted part of the array and swapping it with the first unsorted element.\n\n**How Selection Sort Works**\n\n1. The algorithm starts by considering the first element as the minimum element.\n2. It then iterates through the rest of the array, comparing each element to the current minimum element.\n3. If a smaller element is found, it becomes the new minimum element.\n4. Once all elements have been compared, the smallest element is swapped with the first unsorted element.\n5. Steps 2-4 are repeated until the entire array is sorted.\n\n**Example Use Case**\n\nSuppose we have an array of integers: `[64, 25, 12, 22, 11]`. The selection sort algorithm would work as follows:\n\n1. Start with the first element (64) as the minimum element.\n2. Compare 64 to the rest of the array:\n\t* 25 is smaller, so it becomes the new minimum element.\n3. Swap 64 with 25: `[25, 64, 12, 22, 11]`.\n4. Compare 25 to the rest of the array:\n\t* 12 is smaller, so it becomes the new minimum element.\n5. Swap 25 with 12: `[12, 25, 64, 22, 11]`.\n6. Compare 12 to the rest of the array:\n\t* 22 is larger, but 11 is smaller, so swap 12 and 11: `[12, 25, 64, 11, 22]`.\n7. Repeat steps 4-6 until all elements have been compared.\n\n**Code Implementation**\n\nHere's a Python implementation of the selection sort algorithm:\n```python\ndef selection_sort(arr):\n    for i in range(len(arr)):\n        # Find the minimum element in the unsorted part of the array\n        min_idx = i\n        for j in range(i+1, len(arr)):\n            if arr[j] < arr[min_idx]:\n                min_idx = j\n\n        # Swap the found minimum element with the first unsorted element\n        arr[i], arr[min_idx] = arr[min_idx], arr[i]\n\n    return arr\n```\n**Time Complexity**\n\nThe time complexity of selection sort is O(n^2), where n is the number of elements in the array. This makes it less efficient than other sorting algorithms like quicksort or mergesort for large datasets.\n\n**Space Complexity**\n\nThe space complexity of selection sort is O(1), as it only requires a single pass through the array to perform the sorting.",
+        "timestamp": "2026-02-15T07:46:40.381Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:46:40.381Z",
+    "updatedAt": "2026-02-15T07:46:40.381Z"
+  },
+  {
+    "threadId": "7c618080-0a42-11f1-be5d-dbf47429624b",
+    "title": "merge sort",
+    "messages": [
+      {
+        "role": "user",
+        "content": "merge sort",
+        "timestamp": "2026-02-15T07:49:05.977Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Mergesort is a popular sorting algorithm that uses the divide-and-conquer technique to sort arrays of elements. Here's an overview and implementation of mergesort:\n\n**How Mergesort Works**\n\n1. **Divide**: Divide the input array into two halves until each subarray contains only one element.\n2. **Conquer**: Recursively apply the merging process to each pair of adjacent subarrays.\n3. **Merge**: Merge the sorted subarrays back together to form a single, sorted array.\n\n**Mergesort Algorithm**\n\nHere's a step-by-step breakdown of the mergesort algorithm:\n\n1. If the input array has only one element or is empty, return it as it's already sorted.\n\n2. Find the middle index `mid` of the input array.\n3. Divide the input array into two halves: `left` and `right`, where `left[mid] = right[mid]`.\n4. Recursively apply the merging process to each half:\n   * Call `merge(left, left + mid)` to sort the left half.\n   * Call `merge(right, (mid + 1) / 2)` to sort the right half.\n\n5. Merge the two sorted halves back together using the `merge` function.\n\n**Merging Function**\n\nThe merging process combines two sorted arrays into a single, sorted array. Here's an example implementation:\n\n```python\ndef merge(left, right):\n    merged = []\n    left_index = 0\n    right_index = 0\n\n    while left_index < len(left) and right_index < len(right):\n        if left[left_index] <= right[right_index]:\n            merged.append(left[left_index])\n            left_index += 1\n        else:\n            merged.append(right[right_index])\n            right_index += 1\n\n    # Append any remaining elements from either half\n    while left_index < len(left):\n        merged.append(left[left_index])\n        left_index += 1\n\n    while right_index < len(right):\n        merged.append(right[right_index])\n        right_index += 1\n\n    return merged\n```\n\n**Mergesort Implementation**\n\nHere's a complete implementation of the mergesort algorithm in Python:\n\n```python\ndef mergesort(arr):\n    if len(arr) <= 1:\n        return arr\n\n    mid = len(arr) // 2\n    left_half = arr[:mid]\n    right_half = arr[mid:]\n\n    # Recursively sort each half\n    left_half = mergesort(left_half)\n    right_half = mergesort(right_half)\n\n    # Merge the two sorted halves\n    return merge(left_half, right_half)\n\n\ndef merge(left, right):\n    merged = []\n    left_index = 0\n    right_index = 0\n\n    while left_index < len(left) and right_index < len(right):\n        if left[left_index] <= right[right_index]:\n            merged.append(left[left_index])\n            left_index += 1\n        else:\n            merged.append(right[right_index])\n            right_index += 1\n\n    # Append any remaining elements from either half\n    while left_index < len(left):\n        merged.append(left[left_index])\n        left_index += 1\n\n    while right_index < len(right):\n        merged.append(right[right_index])\n        right_index += 1\n\n    return merged\n\n\n# Example usage:\narr = [64, 34, 25, 12, 22, 11, 90]\nsorted_arr = mergesort(arr)\nprint(sorted_arr)  # Output: [11, 12, 22, 25, 34, 64, 90]\n```\n\nMergesort has a time complexity of O(n log n) and is considered one of the most efficient sorting algorithms for large datasets.",
+        "timestamp": "2026-02-15T07:49:05.977Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:49:05.977Z",
+    "updatedAt": "2026-02-15T07:49:05.977Z"
+  },
+  {
+    "threadId": "becc5ee0-0a42-11f1-bfce-a5c98154cbbf",
+    "title": "Write a Python function to sort a list",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Write a Python function to sort a list",
+        "timestamp": "2026-02-15T07:49:17.932Z"
+      },
+      {
+        "role": "assistant",
+        "content": "def sort_list(input_list):\n    \"\"\"\n    Sorts the input list in ascending order using Timsort.\n\n    Args:\n        input_list (list): The list to be sorted.\n\n    Returns:\n        list: A new list containing the same elements, but in sorted order.\n    \"\"\"\n    return sorted(input_list)",
+        "timestamp": "2026-02-15T07:49:17.932Z"
+      },
+      {
+        "role": "user",
+        "content": "sorting",
+        "timestamp": "2026-02-15T07:51:24.157Z"
+      },
+      {
+        "role": "assistant",
+        "content": "There are several sorting algorithms, each with its own strengths and weaknesses. Here's a brief overview of some common ones:\n\n1. **Bubble Sort**: Simple to implement, but not efficient for large lists. It works by repeatedly swapping adjacent elements if they are in the wrong order.\n2. **Selection Sort**: Similar to bubble sort, but it only swaps the smallest (or largest) element with the first unsorted element each pass.\n3. **Insertion Sort**: Works well for small lists or nearly sorted lists. It inserts new elements into their proper position within the already sorted part of the list.\n4. **Merge Sort**: A divide-and-conquer algorithm that splits the list into two halves, sorts them individually, and then merges them back together in sorted order.\n5. **Quick Sort**: Another divide-and-conquer algorithm that picks a pivot element, partitions the list around it, and recursively sorts the sublists.\n\nIn Python, you can use the built-in `sorted` function to sort lists, which uses Timsort (a hybrid of merge sort and insertion sort) as its default sorting algorithm.\n\nHere's an example of how to implement some common sorting algorithms in Python:\n\n**Bubble Sort**\n```python\ndef bubble_sort(input_list):\n    n = len(input_list)\n    for i in range(n-1):\n        for j in range(0, n-i-1):\n            if input_list[j] > input_list[j+1]:\n                input_list[j], input_list[j+1] = input_list[j+1], input_list[j]\n    return input_list\n```\n\n**Selection Sort**\n```python\ndef selection_sort(input_list):\n    for i in range(len(input_list)):\n        min_idx = i\n        for j in range(i+1, len(input_list)):\n            if input_list[j] < input_list[min_idx]:\n                min_idx = j\n        input_list[i], input_list[min_idx] = input_list[min_idx], input_list[i]\n    return input_list\n```\n\n**Insertion Sort**\n```python\ndef insertion_sort(input_list):\n    for i in range(1, len(input_list)):\n        key = input_list[i]\n        j = i-1\n        while j >= 0 and input_list[j] > key:\n            input_list[j+1] = input_list[j]\n            j -= 1\n        input_list[j+1] = key\n    return input_list\n```\n\n**Merge Sort**\n```python\ndef merge_sort(input_list):\n    if len(input_list) <= 1:\n        return input_list\n\n    mid = len(input_list) // 2\n    left_half = merge_sort(input_list[:mid])\n    right_half = merge_sort(input_list[mid:])\n\n    return merge(left_half, right_half)\n\ndef merge(left, right):\n    result = []\n    i, j = 0, 0\n\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n\n    result.extend(left[i:])\n    result.extend(right[j:])\n\n    return result\n```\n\n**Quick Sort**\n```python\ndef quick_sort(input_list):\n    if len(input_list) <= 1:\n        return input_list\n\n    pivot = input_list[len(input_list) // 2]\n    left = [x for x in input_list if x < pivot]\n    middle = [x for x in input_list if x == pivot]\n    right = [x for x in input_list if x > pivot]\n\n    return quick_sort(left) + middle + quick_sort(right)\n```\n\nNote that these implementations have a time complexity of O(n log n) on average, but can be slower than the built-in `sorted` function for very large lists due to overhead and caching.",
+        "timestamp": "2026-02-15T07:51:24.157Z"
+      }
+    ],
+    "createdAt": "2026-02-15T07:49:17.932Z",
+    "updatedAt": "2026-02-15T07:51:24.157Z"
+  },
+  {
+    "threadId": "2e5824b0-0a61-11f1-b6db-3d8b9b7025e8",
+    "title": "sorting",
+    "messages": [
+      {
+        "role": "user",
+        "content": "sorting",
+        "timestamp": "2026-02-15T11:28:18.636Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sorting is the process of organizing items or data in a specific order, such as alphabetical, numerical, or categorical. Here are some common types of sorting:\n\n1. **Alphabetical Sorting**: Organizing items in alphabetical order based on their names or labels.\n2. **Numerical Sorting**: Organizing items in numerical order based on their values or quantities.\n3. **Categorical Sorting**: Organizing items into groups or categories based on their characteristics or attributes.\n4. **Radix Sort**: A non-comparative integer sorting algorithm that sorts numbers by grouping them based on the digits that share the same significant position and value.\n\nSome common sorting algorithms include:\n\n1. **Bubble Sort**: A simple sorting algorithm that works by repeatedly swapping adjacent elements if they are in the wrong order.\n2. **Selection Sort**: An algorithm that selects the smallest (or largest) element from the unsorted portion of the list and swaps it with the first element of the unsorted portion.\n3. **Insertion Sort**: An algorithm that inserts each element into its proper position in the sorted portion of the list.\n4. **Merge Sort**: A divide-and-conquer algorithm that splits the list into smaller sublists, sorts each sublist, and then merges them back together.\n\nSorting is an essential task in many areas, including:\n\n1. **Data Analysis**: Sorting data can help identify patterns, trends, and correlations.\n2. **Database Management**: Sorting data helps to organize and retrieve information efficiently.\n3. **File Management**: Sorting files and folders can help with organization and retrieval.\n4. **Algorithm Development**: Sorting is a fundamental problem in computer science, and many algorithms rely on sorting as a key component.\n\nDo you have any specific questions about sorting or would you like me to elaborate on any of the topics above?",
+        "timestamp": "2026-02-15T11:28:18.637Z"
+      }
+    ],
+    "createdAt": "2026-02-15T11:28:18.637Z",
+    "updatedAt": "2026-02-15T11:28:18.637Z"
+  }
+]

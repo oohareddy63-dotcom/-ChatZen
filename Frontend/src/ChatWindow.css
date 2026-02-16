@@ -1,125 +1,261 @@
+/* ChatGPT-like Modern Styling */
 .chatWindow {
-    background-color: #212121;
-    height: 100vh;
-    width: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
+    background: #171717;
+    color: #ececf1;
+    font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
-/* navbar */
-
+/* Navbar */
 .navbar {
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #2d2d2d;
+    background: #171717;
+    flex-shrink: 0;
 }
 
 .navbar span {
-    margin: 1rem 2rem;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ececf1;
+    margin: 0;
+}
+
+.navbar span i {
+    margin-left: 8px;
+    font-size: 12px;
+    color: #8e8ea0;
 }
 
 .userIconDiv {
-    margin: 1rem 2rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+    margin: 0;
+}
+
+.userIconDiv:hover {
+    background: #2d2d2d;
 }
 
 .userIcon {
-    background-color: #339cff;
-    height: 25px;
-    width: 25px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
+    background: #10a37f;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    color: white;
+    font-size: 14px;
 }
 
-/* chat input */
-.chatInput {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.inputBox {
-    width: 100%;
-    position: relative;
-    max-width: 700px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-input {
-    width: 100%;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    font-size: 0.8rem;
-    border-radius: 14px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0 54px 55px,
-                rgba(0, 0, 0, 0.05) 0 -12px 30px,
-                rgba(0, 0, 0, 0.05) 0 4px 6px,
-                rgba(0, 0, 0, 0.05) 0 12px 3px,
-                rgba(0, 0, 0, 0.05) 0 -3px 5px;
-}
-
-input:focus {
-    outline: none;
-}
-
-#submit {
-    cursor: pointer;
-    height: 35px;
-    width: 35px;
-    font-size: 20px;
-    position: absolute;
-    right: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#submit i:hover {
-    color: #fff;
-}
-
-.info {
-    font-size: 0.8rem;
-    padding: 0.5rem;
-    color: #b4b4b4;
-}
-
-/* dropdown css */
-
+/* Dropdown Menu */
 .dropDown {
     position: absolute;
-    top: 4rem;
-    right: 4rem;
-    width: 150px;
-
-    background-color: #323232;
-    padding: 0.3rem 0.5rem;
-    border-radius: 6px;
-    text-align: left;
+    top: 60px;
+    right: 16px;
+    background: #2d2d2d;
+    border: 1px solid #4d4d4f;
+    border-radius: 8px;
+    padding: 8px;
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     z-index: 1000;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .dropDownItem {
-    font-size: 0.9rem;
-    margin: 0.3rem 0rem;
-    padding: 0.5rem 0.2rem;
+    padding: 12px 16px;
+    border-radius: 6px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ececf1;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    margin: 0;
 }
 
-
 .dropDownItem:hover {
-    background-color: rgba(180, 180, 180, 0.1);
-    border-radius: 6px;
+    background: #3d3d3d;
+}
+
+.dropDownItem i {
+    width: 16px;
+    color: #8e8ea0;
+}
+
+/* Chat Container - Scrollable area */
+.chatContainer {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Scrollbar styling */
+.chatContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chatContainer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chatContainer::-webkit-scrollbar-thumb {
+    background: #4d4d4f;
+    border-radius: 4px;
+}
+
+.chatContainer::-webkit-scrollbar-thumb:hover {
+    background: #5d5d5f;
+}
+
+/* Loading Indicator */
+.loadingIndicator {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    background: transparent;
+}
+
+/* Chat Input Area */
+.chatInput {
+    padding: 16px;
+    background: #171717;
+    border-top: 1px solid #2d2d2d;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.inputBox {
+    display: flex;
+    align-items: center;
+    background: #40414f;
+    border-radius: 12px;
+    padding: 12px 16px;
+    border: 1px solid #4d4d4f;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+}
+
+.inputBox:focus-within {
+    border-color: #10a37f;
+    box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.1);
+}
+
+.inputBox input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ececf1;
+    font-size: 16px;
+    line-height: 1.5;
+    resize: none;
+    font-family: inherit;
+    padding: 0 40px 0 0;
+}
+
+.inputBox input::placeholder {
+    color: #8e8ea0;
+}
+
+.inputBox input:focus {
+    outline: none;
+}
+
+.inputBox input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+#submit {
+    margin-left: 12px;
+    cursor: pointer;
+    color: #8e8ea0;
+    transition: color 0.2s, transform 0.2s;
+    padding: 8px;
+    position: absolute;
+    right: 8px;
+    font-size: 16px;
+}
+
+#submit:hover {
+    color: #ececf1;
+    transform: scale(1.1);
+}
+
+#submit.active {
+    color: #10a37f;
+}
+
+#submit.active:hover {
+    color: #0d8c6a;
+}
+
+.info {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #8e8ea0;
+    line-height: 1.4;
+    padding: 0.5rem;
+}
+
+/* Mobile Menu Button */
+.mobileMenuBtn {
+    display: none;
+    background: none;
+    border: none;
+    color: #ececf1;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 12px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 12px;
+    }
+    
+    .mobileMenuBtn {
+        display: block;
+    }
+    
+    .chatInput {
+        padding: 12px;
+    }
+    
+    .inputBox {
+        padding: 10px 14px;
+    }
+    
+    .inputBox input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .dropDown {
+        right: 12px;
+        min-width: 180px;
+    }
 }

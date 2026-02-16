@@ -1,58 +1,68 @@
 import "./ChatWindow.css";
 import Chat from "./Chat.jsx";
 import { MyContext } from "./MyContext.jsx";
-import { useContext, useState, useEffect } from "react";
-import {ScaleLoader} from "react-spinners";
+import { useContext, useState, useEffect, useRef } from "react";
 
-function ChatWindow() {
-    const {prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat} = useContext(MyContext);
+function ChatWindow({ onMenuClick }) {
+    const {currThreadId, prevChats, setPrevChats, setNewChat} = useContext(MyContext);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [localPrompt, setLocalPrompt] = useState("");
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    const chatContainerRef = useRef(null);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        chatContainerRef.current?.scrollTo(0, chatContainerRef.current.scrollHeight);
+    }, [prevChats, loading]);
 
     const getReply = async () => {
+        if (!localPrompt.trim() || loading) return;
+        
+        const userMessage = localPrompt.trim();
+        setLocalPrompt("");
         setLoading(true);
-        setNewChat(false);
-
-        console.log("message ", prompt, " threadId ", currThreadId);
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: prompt,
-                threadId: currThreadId
-            })
-        };
+        
+        // Add user message immediately
+        setPrevChats(prev => [...prev, { role: "user", content: userMessage }]);
 
         try {
-            const response = await fetch("http://localhost:8080/api/chat", options);
-            const res = await response.json();
-            console.log(res);
-            setReply(res.reply);
+            const response = await fetch("http://localhost:8080/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userMessage, threadId: currThreadId })
+            });
+            
+            const data = await response.json();
+            
+            if (data.reply) {
+                setPrevChats(prev => [...prev, { role: "assistant", content: data.reply }]);
+                setNewChat(false);
+            } else {
+                throw new Error("No reply");
+            }
         } catch(err) {
-            console.log(err);
+            console.error("Error:", err);
+            setPrevChats(prev => [...prev, { 
+                role: "assistant", 
+                content: "Error: " + err.message
+            }]);
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     }
 
-    //Append new chat to prevChats
-    useEffect(() => {
-        if(prompt && reply) {
-            setPrevChats(prevChats => (
-                [...prevChats, {
-                    role: "user",
-                    content: prompt
-                },{
-                    role: "assistant",
-                    content: reply
-                }]
-            ));
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            getReply();
         }
-
-        setPrompt("");
-    }, [reply]);
-
+    }
 
     const handleProfileClick = () => {
         setIsOpen(!isOpen);
@@ -61,7 +71,14 @@ function ChatWindow() {
     return (
         <div className="chatWindow">
             <div className="navbar">
-                <span>SigmaGPT <i className="fa-solid fa-chevron-down"></i></span>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    {isMobile && (
+                        <button className="mobileMenuBtn" onClick={onMenuClick}>
+                            <i className="fa-solid fa-bars"></i>
+                        </button>
+                    )}
+                    <span>ChatZen <i className="fa-solid fa-chevron-down"></i></span>
+                </div>
                 <div className="userIconDiv" onClick={handleProfileClick}>
                     <span className="userIcon"><i className="fa-solid fa-user"></i></span>
                 </div>
@@ -69,29 +86,41 @@ function ChatWindow() {
             {
                 isOpen && 
                 <div className="dropDown">
-                    <div className="dropDownItem"><i class="fa-solid fa-gear"></i> Settings</div>
-                    <div className="dropDownItem"><i class="fa-solid fa-cloud-arrow-up"></i> Upgrade plan</div>
-                    <div className="dropDownItem"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</div>
+                    <div className="dropDownItem"><i className="fa-solid fa-gear"></i> Settings</div>
+                    <div className="dropDownItem"><i className="fa-solid fa-cloud-arrow-up"></i> Upgrade plan</div>
+                    <div className="dropDownItem"><i className="fa-solid fa-arrow-right-from-bracket"></i> Log out</div>
                 </div>
             }
-            <Chat></Chat>
+            
+            <div className="chatContainer" ref={chatContainerRef}>
+                <Chat />
+            </div>
 
-            <ScaleLoader color="#fff" loading={loading}>
-            </ScaleLoader>
+            {loading && (
+                <div className="loadingIndicator">
+                    <span>Thinking...</span>
+                </div>
+            )}
             
             <div className="chatInput">
                 <div className="inputBox">
-                    <input placeholder="Ask anything"
-                        value={prompt}
-                        onChange={(e) => setPrompt(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter'? getReply() : ''}
+                    <input 
+                        placeholder="Ask anything"
+                        value={localPrompt}
+                        onChange={(e) => setLocalPrompt(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        disabled={loading}
+                    />
+                    <div 
+                        id="submit" 
+                        onClick={getReply}
+                        className={localPrompt.trim() ? "active" : ""}
                     >
-                           
-                    </input>
-                    <div id="submit" onClick={getReply}><i className="fa-solid fa-paper-plane"></i></div>
+                        <i className="fa-solid fa-paper-plane"></i>
+                    </div>
                 </div>
                 <p className="info">
-                    SigmaGPT can make mistakes. Check important info. See Cookie Preferences.
+                    ChatZen can make mistakes. Check important info.
                 </p>
             </div>
         </div>
