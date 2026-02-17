@@ -73,15 +73,6 @@ npm install
 
 ### 3. Environment Configuration
 
-Create a `.env` file in the `Backend` directory:
-
-```env
-# MongoDB Atlas Connection
-MONGODB_URI=mongodb+srv://your-username:your-password@cluster0.mongodb.net/connectnow?retryWrites=true&w=majority
-
-# AI Service API Key
-AI_API_KEY=your-ai-service-api-key-here
-
 # Server Port
 PORT=8080
 
