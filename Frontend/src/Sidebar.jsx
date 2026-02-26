@@ -2,6 +2,7 @@ import "./Sidebar.css";
 import { useContext, useEffect, useState } from "react";
 import { MyContext } from "./MyContext.jsx";
 import {v1 as uuidv1} from "uuid";
+import API_URL from "./config";
 
 function Sidebar({ isOpen, onClose }) {
     const {allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats, prevChats, user, onLogout, onShowDashboard} = useContext(MyContext);
@@ -18,7 +19,7 @@ function Sidebar({ isOpen, onClose }) {
 
     const getAllThreads = async () => {
         try {
-            const response = await fetch("http://localhost:8080/api/thread");
+            const response = await fetch(`${API_URL}/api/thread`);
             const res = await response.json();
             const filteredData = res.map(thread => ({threadId: thread.threadId, title: thread.title}));
             setAllThreads(filteredData);
@@ -51,7 +52,7 @@ function Sidebar({ isOpen, onClose }) {
         setCurrThreadId(newThreadId);
 
         try {
-            const response = await fetch(`http://localhost:8080/api/thread/${newThreadId}`);
+            const response = await fetch(`${API_URL}/api/thread/${newThreadId}`);
             const res = await response.json();
             setPrevChats(res);
             setNewChat(false);
@@ -65,7 +66,7 @@ function Sidebar({ isOpen, onClose }) {
     const deleteThread = async (e, threadId) => {
         e.stopPropagation();
         try {
-            const response = await fetch(`http://localhost:8080/api/thread/${threadId}`, {method: "DELETE"});
+            const response = await fetch(`${API_URL}/api/thread/${threadId}`, {method: "DELETE"});
             const res = await response.json();
             console.log(res);
 

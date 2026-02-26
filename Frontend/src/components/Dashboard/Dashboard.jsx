@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Dashboard.css";
+import API_URL from "../../config";
 
 function Dashboard({ onBackToChat }) {
     const [analytics, setAnalytics] = useState(null);
@@ -14,7 +15,7 @@ function Dashboard({ onBackToChat }) {
     const fetchDashboardData = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:8080/api/analytics/dashboard", {
+            const response = await fetch(`${API_URL}/api/analytics/dashboard`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

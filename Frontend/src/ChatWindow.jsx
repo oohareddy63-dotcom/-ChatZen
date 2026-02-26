@@ -2,6 +2,7 @@ import "./ChatWindow.css";
 import Chat from "./Chat.jsx";
 import { MyContext } from "./MyContext.jsx";
 import { useContext, useState, useEffect, useRef } from "react";
+import API_URL from "./config";
 
 function ChatWindow({ onMenuClick }) {
     const {currThreadId, prevChats, setPrevChats, setNewChat} = useContext(MyContext);
@@ -32,7 +33,7 @@ function ChatWindow({ onMenuClick }) {
         setPrevChats(prev => [...prev, { role: "user", content: userMessage }]);
 
         try {
-            const response = await fetch("http://localhost:8080/api/chat", {
+            const response = await fetch(`${API_URL}/api/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: userMessage, threadId: currThreadId })
