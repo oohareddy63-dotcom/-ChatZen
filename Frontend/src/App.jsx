@@ -42,12 +42,22 @@ function App() {
   };
 
   const handleLogout = () => {
+    // Clear all localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    
+    // Reset all state
     setUser(null);
     setAuthView("login");
     setPrevChats([]);
+    setAllThreads([]);
     setCurrThreadId(uuidv1());
+    setPrompt("");
+    setReply(null);
+    setNewChat(true);
+    
+    // Force page reload to ensure clean state
+    window.location.reload();
   };
 
   const handleShowDashboard = () => {

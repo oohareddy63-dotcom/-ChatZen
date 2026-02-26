@@ -4,9 +4,10 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server-mongodb.js",
-    "dev": "nodemon server-mongodb.js",
-    "start:memory": "node server.js"
+    "start": "node server-complete.js",
+    "dev": "nodemon server-complete.js",
+    "start:old": "node server.js",
+    "start:mongodb": "node server-mongodb.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

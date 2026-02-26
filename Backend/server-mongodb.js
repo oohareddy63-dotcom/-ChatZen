@@ -98,13 +98,26 @@ const seedData = async () => {
     }
 };
 
+// In-memory storage fallback
+const inMemoryUsers = new Map();
+const inMemoryThreads = new Map();
+
 // Routes
 app.post("/api/auth/register", async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        const user = new User({ username, email, password });
-        await user.save();
-        res.json({ message: "Registered", token: "token-" + user._id, user: { id: user._id, username, email } });
+        
+        // Check if MongoDB is connected
+        if (mongoose.connection.readyState === 1) {
+            const user = new User({ username, email, password });
+            await user.save();
+            res.json({ message: "Registered", token: "token-" + user._id, user: { id: user._id, username, email } });
+        } else {
+            // Use in-memory storage
+            const userId = Date.now().toString();
+            inMemoryUsers.set(userId, { id: userId, username, email, password });
+            res.json({ message: "Registered", token: "token-" + userId, user: { id: userId, username, email } });
+        }
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -113,11 +126,28 @@ app.post("/api/auth/register", async (req, res) => {
 app.post("/api/auth/login", async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email, password });
-        if (!user) {
-            return res.status(401).json({ error: "Invalid credentials" });
+        
+        // Check if MongoDB is connected
+        if (mongoose.connection.readyState === 1) {
+            const user = await User.findOne({ email, password });
+            if (!user) {
+                return res.status(401).json({ error: "Invalid credentials" });
+            }
+            res.json({ message: "Login successful", token: "token-" + user._id, user: { id: user._id, username: user.username, email } });
+        } else {
+            // Use in-memory storage
+            let foundUser = null;
+            for (const user of inMemoryUsers.values()) {
+                if (user.email === email && user.password === password) {
+                    foundUser = user;
+                    break;
+                }
+            }
+            if (!foundUser) {
+                return res.status(401).json({ error: "Invalid credentials" });
+            }
+            res.json({ message: "Login successful", token: "token-" + foundUser.id, user: { id: foundUser.id, username: foundUser.username, email } });
         }
-        res.json({ message: "Login successful", token: "token-" + user._id, user: { id: user._id, username: user.username, email } });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -125,8 +155,17 @@ app.post("/api/auth/login", async (req, res) => {
 
 app.get("/api/thread", async (req, res) => {
     try {
-        const threads = await Thread.find({}, 'threadId title');
-        res.json(threads);
+        if (mongoose.connection.readyState === 1) {
+            const threads = await Thread.find({}, 'threadId title');
+            res.json(threads);
+        } else {
+            // Use in-memory storage
+            const threads = Array.from(inMemoryThreads.values()).map(t => ({
+                threadId: t.threadId,
+                title: t.title
+            }));
+            res.json(threads);
+        }
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -134,9 +173,16 @@ app.get("/api/thread", async (req, res) => {
 
 app.get("/api/thread/:threadId", async (req, res) => {
     try {
-        const thread = await Thread.findOne({ threadId: req.params.threadId });
-        if (!thread) return res.status(404).json({ error: "Thread not found" });
-        res.json(thread.messages);
+        if (mongoose.connection.readyState === 1) {
+            const thread = await Thread.findOne({ threadId: req.params.threadId });
+            if (!thread) return res.status(404).json({ error: "Thread not found" });
+            res.json(thread.messages);
+        } else {
+            // Use in-memory storage
+            const thread = inMemoryThreads.get(req.params.threadId);
+            if (!thread) return res.status(404).json({ error: "Thread not found" });
+            res.json(thread.messages || []);
+        }
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -151,12 +197,20 @@ app.post("/api/chat", async (req, res) => {
             return res.status(400).json({ error: "Message is required" });
         }
         
-        // Get conversation history from MongoDB
+        // Get conversation history
         let history = [];
         if (threadId) {
-            const thread = await Thread.findOne({ threadId });
-            if (thread) {
-                history = thread.messages || [];
+            if (mongoose.connection.readyState === 1) {
+                const thread = await Thread.findOne({ threadId });
+                if (thread) {
+                    history = thread.messages || [];
+                }
+            } else {
+                // Use in-memory storage
+                const thread = inMemoryThreads.get(threadId);
+                if (thread) {
+                    history = thread.messages || [];
+                }
             }
         }
         
@@ -167,36 +221,94 @@ app.post("/api/chat", async (req, res) => {
             { role: "user", content: message }
         ];
         
-        // Call Ollama
-        const ollamaUrl = (process.env.OLLAMA_URL || "http://localhost:11434") + "/api/chat";
-        const response = await fetch(ollamaUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                model: process.env.OLLAMA_MODEL || "llama3.2",
-                messages: messages,
-                stream: false
-            })
-        });
+        let reply = "";
         
-        const data = await response.json();
-        const reply = data.message?.content || data.response || "Sorry, I couldn't process that.";
-        
-        // Save to MongoDB
-        let thread = await Thread.findOne({ threadId });
-        if (!thread) {
-            thread = new Thread({
-                threadId,
-                title: message.substring(0, 30) + (message.length > 30 ? "..." : ""),
-                messages: [],
-                userId: null
+        // Try to call Ollama
+        try {
+            const ollamaUrl = (process.env.OLLAMA_URL || "http://localhost:11434") + "/api/chat";
+            console.log("🤖 Calling Ollama at:", ollamaUrl);
+            
+            const response = await fetch(ollamaUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    model: process.env.OLLAMA_MODEL || "llama3.2",
+                    messages: messages,
+                    stream: false
+                })
             });
+            
+            if (!response.ok) {
+                throw new Error(`Ollama returned status ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            
+            reply = data.message?.content || data.response;
+            
+            if (!reply) {
+                throw new Error("No response from Ollama");
+            }
+            
+            console.log("✅ Got response from Ollama");
+        } catch (ollamaError) {
+            console.error("❌ Ollama Error:", ollamaError.message);
+            
+            // Provide helpful error message
+            reply = `⚠️ **AI Service Not Available**
+
+I couldn't connect to the AI service. Here's what might be wrong:
+
+**If using Ollama:**
+1. Ollama is running but no models are installed
+2. Install a model by running: \`ollama pull llama3.2\`
+3. Or run: \`ollama run llama3.2\`
+
+**Alternative - Use OpenAI:**
+1. Get an API key from: https://platform.openai.com/api-keys
+2. Add to .env file: \`OPENAI_API_KEY=your-key\`
+3. Restart the backend server
+
+**For now, I'm in demo mode.** Your message was: "${message}"
+
+Error details: ${ollamaError.message}`;
         }
         
-        thread.messages.push({ role: "user", content: message });
-        thread.messages.push({ role: "assistant", content: reply });
-        thread.updatedAt = new Date();
-        await thread.save();
+        // Save to storage
+        if (mongoose.connection.readyState === 1) {
+            // Save to MongoDB
+            let thread = await Thread.findOne({ threadId });
+            if (!thread) {
+                thread = new Thread({
+                    threadId,
+                    title: message.substring(0, 30) + (message.length > 30 ? "..." : ""),
+                    messages: [],
+                    userId: null
+                });
+            }
+            
+            thread.messages.push({ role: "user", content: message });
+            thread.messages.push({ role: "assistant", content: reply });
+            thread.updatedAt = new Date();
+            await thread.save();
+        } else {
+            // Save to in-memory storage
+            if (!inMemoryThreads.has(threadId)) {
+                inMemoryThreads.set(threadId, {
+                    threadId,
+                    title: message.substring(0, 30) + (message.length > 30 ? "..." : ""),
+                    messages: []
+                });
+            }
+            
+            const thread = inMemoryThreads.get(threadId);
+            thread.messages.push({ role: "user", content: message });
+            thread.messages.push({ role: "assistant", content: reply });
+        }
         
         res.json({ reply });
     } catch (error) {
@@ -208,39 +320,72 @@ app.post("/api/chat", async (req, res) => {
 // Analytics endpoint
 app.get("/api/analytics/dashboard", async (req, res) => {
     try {
-        const userCount = await User.countDocuments();
-        const threadCount = await Thread.countDocuments();
-        const allThreads = await Thread.find({});
-        
-        // Calculate total messages
-        let totalMessages = 0;
-        allThreads.forEach(t => {
-            totalMessages += t.messages ? t.messages.length : 0;
-        });
-        
-        res.json({
-            overview: {
-                totalConversations: threadCount,
-                totalMessages: totalMessages,
-                totalUsers: userCount,
-                curiosityScore: 75,
-                averageFocusLevel: 82
-            },
-            recentConversations: allThreads.slice(-5).map(t => ({
-                threadId: t.threadId,
-                title: t.title,
-                messageCount: t.messages ? t.messages.length : 0,
-                analytics: {
-                    curiosityScore: Math.floor(Math.random() * 40) + 60,
-                    topicDrift: { focusLevel: Math.floor(Math.random() * 30) + 70 }
-                }
-            })),
-            knowledgeGrowth: [],
-            learningStreak: 3,
-            topicDistribution: [
-                { topic: "general", count: threadCount, percentage: 100 }
-            ]
-        });
+        if (mongoose.connection.readyState === 1) {
+            const userCount = await User.countDocuments();
+            const threadCount = await Thread.countDocuments();
+            const allThreads = await Thread.find({});
+            
+            // Calculate total messages
+            let totalMessages = 0;
+            allThreads.forEach(t => {
+                totalMessages += t.messages ? t.messages.length : 0;
+            });
+            
+            res.json({
+                overview: {
+                    totalConversations: threadCount,
+                    totalMessages: totalMessages,
+                    totalUsers: userCount,
+                    curiosityScore: 75,
+                    averageFocusLevel: 82
+                },
+                recentConversations: allThreads.slice(-5).map(t => ({
+                    threadId: t.threadId,
+                    title: t.title,
+                    messageCount: t.messages ? t.messages.length : 0,
+                    analytics: {
+                        curiosityScore: Math.floor(Math.random() * 40) + 60,
+                        topicDrift: { focusLevel: Math.floor(Math.random() * 30) + 70 }
+                    }
+                })),
+                knowledgeGrowth: [],
+                learningStreak: 3,
+                topicDistribution: [
+                    { topic: "general", count: threadCount, percentage: 100 }
+                ]
+            });
+        } else {
+            // Use in-memory storage
+            const allThreads = Array.from(inMemoryThreads.values());
+            let totalMessages = 0;
+            allThreads.forEach(t => {
+                totalMessages += t.messages ? t.messages.length : 0;
+            });
+            
+            res.json({
+                overview: {
+                    totalConversations: allThreads.length,
+                    totalMessages: totalMessages,
+                    totalUsers: inMemoryUsers.size,
+                    curiosityScore: 75,
+                    averageFocusLevel: 82
+                },
+                recentConversations: allThreads.slice(-5).map(t => ({
+                    threadId: t.threadId,
+                    title: t.title,
+                    messageCount: t.messages ? t.messages.length : 0,
+                    analytics: {
+                        curiosityScore: Math.floor(Math.random() * 40) + 60,
+                        topicDrift: { focusLevel: Math.floor(Math.random() * 30) + 70 }
+                    }
+                })),
+                knowledgeGrowth: [],
+                learningStreak: 3,
+                topicDistribution: [
+                    { topic: "general", count: allThreads.length, percentage: 100 }
+                ]
+            });
+        }
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -272,15 +417,17 @@ app.get("/api/debug/collections", async (req, res) => {
 const connectDB = async () => {
     try {
         const uri = process.env.MONGODB_URI;
-        if (!uri) {
-            console.log("⚠️  No MONGODB_URI found in .env file");
+        if (!uri || uri.includes('<db_password>')) {
+            console.log("⚠️  MongoDB password not configured in .env file");
+            console.log("⚠️  Using in-memory storage (data will be lost on restart)");
+            console.log("💡 To enable MongoDB: Edit .env and replace <db_password> with your actual password");
             return false;
         }
         
         console.log("🔄 Connecting to MongoDB Atlas...");
         await mongoose.connect(uri, { 
-            serverSelectionTimeoutMS: 10000,
-            connectTimeoutMS: 10000
+            serverSelectionTimeoutMS: 5000,
+            connectTimeoutMS: 5000
         });
         console.log("✅ MongoDB Atlas Connected Successfully!");
         console.log("📊 Database:", mongoose.connection.name);
@@ -290,6 +437,7 @@ const connectDB = async () => {
         return true;
     } catch (err) {
         console.error("❌ MongoDB Connection Error:", err.message);
+        console.log("⚠️  Falling back to in-memory storage");
         return false;
     }
 };

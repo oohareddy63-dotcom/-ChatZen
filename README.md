@@ -1,6 +1,14 @@
-# 🤖 ConnectNow - AI-Powered Conversational Platform
+# 🤖 ChatZen - AI-Powered Conversational Platform
 
-A modern, intelligent conversational platform built with cutting-edge web technologies. ConnectNow provides seamless AI-powered interactions with a beautiful, responsive interface and robust backend infrastructure.
+A modern, intelligent conversational platform built with cutting-edge web technologies. ChatZen provides seamless AI-powered interactions with a beautiful, responsive interface and robust backend infrastructure.
+
+## 🚀 QUICK START - READ THIS FIRST!
+
+**👉 Want to get started in 2 minutes? Read: `START_CHATZEN_NOW.md`**
+
+**Need detailed setup help? Read: `COMPLETE_SETUP.md`**
+
+**Having Ollama issues? Read: `FIX_OLLAMA.md`**
 
 ## 🚀 Features
 
@@ -51,10 +59,43 @@ Before running this application, ensure you have:
 
 ## 🚀 Quick Start
 
+### ⚡ 2-Minute Setup
+
+**Step 1: Fix MongoDB Password**
+1. Open `-ChatZen/Backend/.env`
+2. Replace `<db_password>` with your actual MongoDB password
+3. Save the file
+
+**Step 2: Install Ollama Model**
+- Double-click: `install-ollama-model.bat` OR
+- Run: `ollama pull llama3.2`
+
+**Step 3: Start ChatZen**
+- Double-click: `start-chatzen.bat` OR
+- Manually start backend and frontend (see below)
+
+**Step 4: Open Browser**
+- Go to: http://localhost:5173
+- Sign up / Login
+- Start chatting! 🎉
+
+---
+
+### 📚 Detailed Setup Guides
+
+- **`START_CHATZEN_NOW.md`** - Quick 2-minute setup
+- **`COMPLETE_SETUP.md`** - Comprehensive setup guide
+- **`FIX_OLLAMA.md`** - Ollama troubleshooting
+- **`TROUBLESHOOTING.md`** - Common issues and fixes
+
+---
+
+### 🛠️ Manual Setup
+
 ### 1. Clone the Repository
 ```bash
 git clone <repository-url>
-cd ConnectNow
+cd ChatZen
 ```
 
 ### 2. Install Dependencies
@@ -73,29 +114,40 @@ npm install
 
 ### 3. Environment Configuration
 
+**Edit `Backend/.env`:**
+```env
+# IMPORTANT: Replace <db_password> with your actual MongoDB password!
+MONGODB_URI=mongodb+srv://oohareddy6362_db_user:YourPassword@gpt.j0xqbvw.mongodb.net/chatzen?retryWrites=true&w=majority&appName=gpt
+
 # Server Port
 PORT=8080
 
-# Optional: Local AI Configuration
+# Ollama Configuration (Local AI)
 OLLAMA_URL=http://localhost:11434
 OLLAMA_MODEL=llama3.2
 ```
 
-### 4. Start the Application
+### 4. Install Ollama Model
+
+```bash
+ollama pull llama3.2
+```
+
+### 5. Start the Application
 
 **Start Backend Server:**
 ```bash
 cd Backend
-npm run dev
+npm start
 ```
 
-**Start Frontend Server:**
+**Start Frontend Server (new terminal):**
 ```bash
 cd Frontend
 npm run dev
 ```
 
-### 5. Access the Application
+### 6. Access the Application
 
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:8080/api
