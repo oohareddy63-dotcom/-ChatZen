@@ -19,8 +19,14 @@ const PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(express.json());
+
+// CORS configuration - Allow all origins in production, specific origins in development
+const allowedOrigins = process.env.NODE_ENV === 'production' 
+    ? '*' 
+    : ["http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:5173"];
+
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:5173"],
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
