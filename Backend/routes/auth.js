@@ -1,14 +1,11 @@
 import express from "express";
 import User from "../models/User.js";
 import { generateToken, verifyToken } from "../middleware/auth.js";
-
 const router = express.Router();
-
 // Register
 router.post("/register", async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        
         // Validation
         if (!username || !email || !password) {
             return res.status(400).json({ error: "Please provide all required fields" });
