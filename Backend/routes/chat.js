@@ -3,9 +3,7 @@ import Thread from "../models/Thread.js";
 import { readThreads, writeThreads } from "../utils/fileDB.js";
 import getOpenAIAPIResponse from "../utils/openai.js";
 import mongoose from "mongoose";
-
 const router = express.Router();
-
 // Helper function to check if MongoDB is connected
 const isMongoConnected = () => {
     return mongoose.connection.readyState === 1;
