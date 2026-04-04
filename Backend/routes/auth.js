@@ -10,24 +10,20 @@ router.post("/register", async (req, res) => {
         if (!username || !email || !password) {
             return res.status(400).json({ error: "Please provide all required fields" });
         }
-        
         if (password.length < 6) {
             return res.status(400).json({ error: "Password must be at least 6 characters" });
         }
-        
         // Check if user exists
         const existingUser = await User.findOne({ $or: [{ email }, { username }] });
         if (existingUser) {
             return res.status(400).json({ error: "User already exists" });
         }
-        
         // Create user
         const user = new User({ username, email, password });
         await user.save();
         
         // Generate token
         const token = generateToken(user._id);
-        
         res.status(201).json({
             message: "User registered successfully",
             token,
