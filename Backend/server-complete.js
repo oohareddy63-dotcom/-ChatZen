@@ -393,7 +393,7 @@ function calcAnalytics(threads) {
     const allUserMessages = [];
     threads.forEach(t => {
         (t.messages || []).forEach(m => {
-            if (m.role === "user") allUserMessages.push(m.content);
+            if (m.role === "user") allUserMessages.push(m.content || "");
         });
     });
 
@@ -401,17 +401,22 @@ function calcAnalytics(threads) {
         return { curiosityScore: 0, focusLevel: 0, confidencePattern: 0 };
     }
 
-    // Curiosity: % of messages that are questions
-    const questionCount = allUserMessages.filter(m => m.includes("?") || /^(what|how|why|when|where|who|which|can|could|would|is|are|do|does)/i.test(m.trim())).length;
+    // Curiosity: messages that are questions or start with question words
+    const questionCount = allUserMessages.filter(m =>
+        m.includes("?") ||
+        /^(what|how|why|when|where|who|which|can|could|would|is|are|do|does|explain|tell me|describe)/i.test(m.trim())
+    ).length;
     const curiosityScore = Math.min(100, Math.round((questionCount / allUserMessages.length) * 100));
 
-    // Focus: penalise very short messages (< 5 words) as low-effort/drifting
-    const focusedMessages = allUserMessages.filter(m => m.trim().split(/\s+/).length >= 5).length;
+    // Focus: messages with 3+ words are considered focused (lowered threshold)
+    const focusedMessages = allUserMessages.filter(m => m.trim().split(/\s+/).length >= 3).length;
     const focusLevel = Math.min(100, Math.round((focusedMessages / allUserMessages.length) * 100));
 
     // Confidence: penalise hedging words
-    const hedgeWords = ["maybe", "i think", "i guess", "not sure", "i don't know", "perhaps", "possibly", "idk"];
-    const confidentMessages = allUserMessages.filter(m => !hedgeWords.some(h => m.toLowerCase().includes(h))).length;
+    const hedgeWords = ["maybe", "i think", "i guess", "not sure", "i don't know", "perhaps", "possibly", "idk", "not certain"];
+    const confidentMessages = allUserMessages.filter(m =>
+        !hedgeWords.some(h => m.toLowerCase().includes(h))
+    ).length;
     const confidencePattern = Math.min(100, Math.round((confidentMessages / allUserMessages.length) * 100));
 
     return { curiosityScore, focusLevel, confidencePattern };
@@ -437,13 +442,14 @@ app.get("/api/analytics/dashboard", async (req, res) => {
         allThreads.forEach(t => {
             const firstMsg = (t.messages || []).find(m => m.role === "user");
             if (!firstMsg) return;
-            const text = firstMsg.content.toLowerCase();
-            let topic = "general";
-            if (/code|program|function|bug|error|javascript|python|react|node/i.test(text)) topic = "coding";
-            else if (/math|calcul|equation|number|algebra|geometry/i.test(text)) topic = "math";
-            else if (/science|physics|chemistry|biology|nature/i.test(text)) topic = "science";
-            else if (/history|war|country|politics|government/i.test(text)) topic = "history";
-            else if (/write|essay|story|poem|creative/i.test(text)) topic = "writing";
+            const text = (firstMsg.content || "").toLowerCase();
+            let topic = "General";
+            if (/code|program|function|bug|error|javascript|python|react|node|sort|algorithm|array|loop|class|object/i.test(text)) topic = "Coding";
+            else if (/math|calcul|equation|number|algebra|geometry|integral|derivative/i.test(text)) topic = "Math";
+            else if (/science|physics|chemistry|biology|nature|atom|molecule/i.test(text)) topic = "Science";
+            else if (/history|war|country|politics|government|president|king/i.test(text)) topic = "History";
+            else if (/write|essay|story|poem|creative|novel|blog/i.test(text)) topic = "Writing";
+            else if (/what|how|why|when|where|who|explain|tell|describe/i.test(text)) topic = "Learning";
             topicMap[topic] = (topicMap[topic] || 0) + 1;
         });
 
@@ -456,9 +462,9 @@ app.get("/api/analytics/dashboard", async (req, res) => {
         const recentConversations = allThreads.slice(0, 5).map(t => {
             const msgs = t.messages || [];
             const userMsgs = msgs.filter(m => m.role === "user");
-            const qCount = userMsgs.filter(m => m.content.includes("?")).length;
+            const qCount = userMsgs.filter(m => (m.content || "").includes("?") || /^(what|how|why|when|where|who|explain)/i.test((m.content || "").trim())).length;
             const convCuriosity = userMsgs.length > 0 ? Math.round((qCount / userMsgs.length) * 100) : 0;
-            const convFocus = userMsgs.length > 0 ? Math.min(100, Math.round((userMsgs.filter(m => m.content.split(/\s+/).length >= 5).length / userMsgs.length) * 100)) : 0;
+            const convFocus = userMsgs.length > 0 ? Math.min(100, Math.round((userMsgs.filter(m => (m.content || "").split(/\s+/).length >= 3).length / userMsgs.length) * 100)) : 0;
             return {
                 threadId: t.threadId,
                 title: t.title || "New Chat",
