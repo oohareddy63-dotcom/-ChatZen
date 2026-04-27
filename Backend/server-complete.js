@@ -277,6 +277,8 @@ app.post("/api/chat", async (req, res) => {
             thread.messages.push({ role: "user", content: message });
             thread.messages.push({ role: "assistant", content: reply });
             thread.updatedAt = new Date();
+            // Update title to latest user message
+            thread.title = message.substring(0, 40) + (message.length > 40 ? "..." : "");
             await thread.save();
             
             console.log("✅ Chat saved to MongoDB");
@@ -294,6 +296,8 @@ app.post("/api/chat", async (req, res) => {
             thread.messages.push({ role: "user", content: message });
             thread.messages.push({ role: "assistant", content: reply });
             thread.updatedAt = new Date();
+            // Update title to latest user message
+            thread.title = message.substring(0, 40) + (message.length > 40 ? "..." : "");
             
             console.log("✅ Chat saved to memory, thread:", thread.title);
         }
