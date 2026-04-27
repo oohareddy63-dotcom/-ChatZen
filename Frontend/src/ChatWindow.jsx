@@ -60,9 +60,15 @@ function ChatWindow({ onMenuClick }) {
             }
         } catch (err) {
             console.error("Chat error:", err);
+            let msg = "Something went wrong. Please try again.";
+            if (err.message === "Failed to fetch") {
+                msg = "Cannot connect to server. Make sure the backend is running.";
+            } else if (err.message.includes("Ollama") || err.message.includes("ECONNREFUSED")) {
+                msg = "AI service is unavailable. Make sure Ollama is running.";
+            }
             setPrevChats(prev => [...prev, {
                 role: "assistant",
-                content: "⚠️ " + err.message
+                content: "⚠️ " + msg
             }]);
         } finally {
             setLoading(false);
