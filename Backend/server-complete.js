@@ -284,16 +284,18 @@ app.post("/api/chat", async (req, res) => {
             if (!memoryThreads.has(threadId)) {
                 memoryThreads.set(threadId, {
                     threadId,
-                    title: message.substring(0, 30) + (message.length > 30 ? "..." : ""),
-                    messages: []
+                    title: message.substring(0, 40) + (message.length > 40 ? "..." : ""),
+                    messages: [],
+                    updatedAt: new Date()
                 });
             }
             
             const thread = memoryThreads.get(threadId);
             thread.messages.push({ role: "user", content: message });
             thread.messages.push({ role: "assistant", content: reply });
+            thread.updatedAt = new Date();
             
-            console.log("✅ Chat saved to memory");
+            console.log("✅ Chat saved to memory, thread:", thread.title);
         }
         
         res.json({ reply });
@@ -327,10 +329,9 @@ app.get("/api/thread", async (req, res) => {
                 updatedAt: t.updatedAt
             })));
         } else {
-            const threads = Array.from(memoryThreads.values()).map(t => ({
-                threadId: t.threadId,
-                title: t.title
-            }));
+            const threads = Array.from(memoryThreads.values())
+                .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))
+                .map(t => ({ threadId: t.threadId, title: t.title }));
             console.log(`✅ Retrieved ${threads.length} threads from memory`);
             return res.json(threads);
         }

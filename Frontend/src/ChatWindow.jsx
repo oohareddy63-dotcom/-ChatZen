@@ -5,7 +5,7 @@ import { useContext, useState, useEffect, useRef } from "react";
 import API_URL from "./config";
 
 function ChatWindow({ onMenuClick }) {
-    const {currThreadId, prevChats, setPrevChats, setNewChat} = useContext(MyContext);
+    const { currThreadId, prevChats, setPrevChats, setNewChat, setAllThreads } = useContext(MyContext);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [localPrompt, setLocalPrompt] = useState("");
@@ -22,14 +22,26 @@ function ChatWindow({ onMenuClick }) {
         chatContainerRef.current?.scrollTo(0, chatContainerRef.current.scrollHeight);
     }, [prevChats, loading]);
 
+    // Refresh sidebar thread list from server
+    const refreshThreads = async () => {
+        try {
+            const res = await fetch(`${API_URL}/api/thread`);
+            const data = await res.json();
+            setAllThreads(data.map(t => ({ threadId: t.threadId, title: t.title })));
+        } catch (e) {
+            console.error("Failed to refresh threads:", e);
+        }
+    };
+
     const getReply = async () => {
         if (!localPrompt.trim() || loading) return;
-        
+
         const userMessage = localPrompt.trim();
         setLocalPrompt("");
         setLoading(true);
-        
-        // Add user message immediately
+        setNewChat(false);
+
+        // Show user message immediately
         setPrevChats(prev => [...prev, { role: "user", content: userMessage }]);
 
         try {
@@ -38,36 +50,33 @@ function ChatWindow({ onMenuClick }) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: userMessage, threadId: currThreadId })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.reply) {
                 setPrevChats(prev => [...prev, { role: "assistant", content: data.reply }]);
-                setNewChat(false);
             } else {
-                throw new Error("No reply");
+                throw new Error(data.error || "No reply received");
             }
-        } catch(err) {
-            console.error("Error:", err);
-            setPrevChats(prev => [...prev, { 
-                role: "assistant", 
-                content: "Error: " + err.message
+        } catch (err) {
+            console.error("Chat error:", err);
+            setPrevChats(prev => [...prev, {
+                role: "assistant",
+                content: "⚠️ " + err.message
             }]);
         } finally {
             setLoading(false);
+            // Always refresh sidebar after a message is sent
+            await refreshThreads();
         }
-    }
+    };
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             getReply();
         }
-    }
-
-    const handleProfileClick = () => {
-        setIsOpen(!isOpen);
-    }
+    };
 
     return (
         <div className="chatWindow">
@@ -80,19 +89,19 @@ function ChatWindow({ onMenuClick }) {
                     )}
                     <span>ChatZen <i className="fa-solid fa-chevron-down"></i></span>
                 </div>
-                <div className="userIconDiv" onClick={handleProfileClick}>
+                <div className="userIconDiv" onClick={() => setIsOpen(!isOpen)}>
                     <span className="userIcon"><i className="fa-solid fa-user"></i></span>
                 </div>
             </div>
-            {
-                isOpen && 
+
+            {isOpen &&
                 <div className="dropDown">
                     <div className="dropDownItem"><i className="fa-solid fa-gear"></i> Settings</div>
                     <div className="dropDownItem"><i className="fa-solid fa-cloud-arrow-up"></i> Upgrade plan</div>
                     <div className="dropDownItem"><i className="fa-solid fa-arrow-right-from-bracket"></i> Log out</div>
                 </div>
             }
-            
+
             <div className="chatContainer" ref={chatContainerRef}>
                 <Chat />
             </div>
@@ -102,18 +111,18 @@ function ChatWindow({ onMenuClick }) {
                     <span>Thinking...</span>
                 </div>
             )}
-            
+
             <div className="chatInput">
                 <div className="inputBox">
-                    <input 
+                    <input
                         placeholder="Ask anything"
                         value={localPrompt}
                         onChange={(e) => setLocalPrompt(e.target.value)}
                         onKeyDown={handleKeyDown}
                         disabled={loading}
                     />
-                    <div 
-                        id="submit" 
+                    <div
+                        id="submit"
                         onClick={getReply}
                         className={localPrompt.trim() ? "active" : ""}
                     >
@@ -125,7 +134,7 @@ function ChatWindow({ onMenuClick }) {
                 </p>
             </div>
         </div>
-    )
+    );
 }
 
 export default ChatWindow;
