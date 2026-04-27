@@ -15,7 +15,6 @@ function Dashboard({ onBackToChat }) {
             const response = await fetch(`${API_URL}/api/analytics/dashboard`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-
             if (response.ok) {
                 const data = await response.json();
                 setAnalytics(data);
