@@ -1,17 +1,14 @@
 import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import API_URL from "../../config";
-
 function Dashboard({ onBackToChat }) {
     const [analytics, setAnalytics] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [activeTab, setActiveTab] = useState("overview");
-
     useEffect(() => {
         fetchDashboardData();
     }, []);
-
     const fetchDashboardData = async () => {
         try {
             const token = localStorage.getItem("token");
