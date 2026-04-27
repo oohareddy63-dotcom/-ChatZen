@@ -92,7 +92,10 @@ app.post("/api/auth/register", async (req, res) => {
             // MongoDB mode
             const existingUser = await User.findOne({ $or: [{ email }, { username }] });
             if (existingUser) {
-                return res.status(400).json({ error: "User already exists" });
+                if (existingUser.email === email) {
+                    return res.status(400).json({ error: "This email is already registered. Please login instead." });
+                }
+                return res.status(400).json({ error: "This username is already taken. Please choose another." });
             }
             
             const user = new User({ username, email, password });
@@ -113,8 +116,11 @@ app.post("/api/auth/register", async (req, res) => {
         } else {
             // In-memory mode
             for (const user of memoryUsers.values()) {
-                if (user.email === email || user.username === username) {
-                    return res.status(400).json({ error: "User already exists" });
+                if (user.email === email) {
+                    return res.status(400).json({ error: "This email is already registered. Please login instead." });
+                }
+                if (user.username === username) {
+                    return res.status(400).json({ error: "This username is already taken. Please choose another." });
                 }
             }
             
@@ -376,58 +382,110 @@ app.delete("/api/thread/:threadId", async (req, res) => {
 });
 
 // ===== ANALYTICS ROUTES =====
+
+// Helper: calculate real scores from actual messages
+function calcAnalytics(threads) {
+    const allUserMessages = [];
+    threads.forEach(t => {
+        (t.messages || []).forEach(m => {
+            if (m.role === "user") allUserMessages.push(m.content);
+        });
+    });
+
+    if (allUserMessages.length === 0) {
+        return { curiosityScore: 0, focusLevel: 0, confidencePattern: 0 };
+    }
+
+    // Curiosity: % of messages that are questions
+    const questionCount = allUserMessages.filter(m => m.includes("?") || /^(what|how|why|when|where|who|which|can|could|would|is|are|do|does)/i.test(m.trim())).length;
+    const curiosityScore = Math.min(100, Math.round((questionCount / allUserMessages.length) * 100));
+
+    // Focus: penalise very short messages (< 5 words) as low-effort/drifting
+    const focusedMessages = allUserMessages.filter(m => m.trim().split(/\s+/).length >= 5).length;
+    const focusLevel = Math.min(100, Math.round((focusedMessages / allUserMessages.length) * 100));
+
+    // Confidence: penalise hedging words
+    const hedgeWords = ["maybe", "i think", "i guess", "not sure", "i don't know", "perhaps", "possibly", "idk"];
+    const confidentMessages = allUserMessages.filter(m => !hedgeWords.some(h => m.toLowerCase().includes(h))).length;
+    const confidencePattern = Math.min(100, Math.round((confidentMessages / allUserMessages.length) * 100));
+
+    return { curiosityScore, focusLevel, confidencePattern };
+}
+
 app.get("/api/analytics/dashboard", async (req, res) => {
     try {
-        let totalConversations = 0;
-        let totalMessages = 0;
-        let recentConversations = [];
-        
+        let allThreads = [];
+
         if (isMongoConnected) {
-            totalConversations = await Thread.countDocuments();
-            const threads = await Thread.find().sort({ updatedAt: -1 }).limit(5);
-            totalMessages = threads.reduce((sum, t) => sum + t.messages.length, 0);
-            recentConversations = threads.map(t => ({
-                threadId: t.threadId,
-                title: t.title,
-                messageCount: t.messages.length,
-                analytics: {
-                    curiosityScore: t.curiosityScore || Math.floor(Math.random() * 40) + 60,
-                    topicDrift: { focusLevel: Math.floor(Math.random() * 30) + 70 }
-                }
-            }));
+            allThreads = await Thread.find().sort({ updatedAt: -1 });
         } else {
-            totalConversations = memoryThreads.size;
-            totalMessages = Array.from(memoryThreads.values()).reduce((sum, t) => sum + (t.messages?.length || 0), 0);
-            recentConversations = Array.from(memoryThreads.values()).slice(-5).map(t => ({
-                threadId: t.threadId,
-                title: t.title,
-                messageCount: t.messages?.length || 0,
-                analytics: {
-                    curiosityScore: Math.floor(Math.random() * 40) + 60,
-                    topicDrift: { focusLevel: Math.floor(Math.random() * 30) + 70 }
-                }
-            }));
+            allThreads = Array.from(memoryThreads.values());
         }
-        
+
+        const totalConversations = allThreads.length;
+        const totalMessages = allThreads.reduce((sum, t) => sum + (t.messages?.length || 0), 0);
+
+        const { curiosityScore, focusLevel, confidencePattern } = calcAnalytics(allThreads);
+
+        // Topic distribution based on first user message keywords
+        const topicMap = {};
+        allThreads.forEach(t => {
+            const firstMsg = (t.messages || []).find(m => m.role === "user");
+            if (!firstMsg) return;
+            const text = firstMsg.content.toLowerCase();
+            let topic = "general";
+            if (/code|program|function|bug|error|javascript|python|react|node/i.test(text)) topic = "coding";
+            else if (/math|calcul|equation|number|algebra|geometry/i.test(text)) topic = "math";
+            else if (/science|physics|chemistry|biology|nature/i.test(text)) topic = "science";
+            else if (/history|war|country|politics|government/i.test(text)) topic = "history";
+            else if (/write|essay|story|poem|creative/i.test(text)) topic = "writing";
+            topicMap[topic] = (topicMap[topic] || 0) + 1;
+        });
+
+        const topicDistribution = Object.entries(topicMap).map(([topic, count]) => ({
+            topic,
+            count,
+            percentage: totalConversations > 0 ? Math.round((count / totalConversations) * 100) : 0
+        }));
+
+        const recentConversations = allThreads.slice(0, 5).map(t => {
+            const msgs = t.messages || [];
+            const userMsgs = msgs.filter(m => m.role === "user");
+            const qCount = userMsgs.filter(m => m.content.includes("?")).length;
+            const convCuriosity = userMsgs.length > 0 ? Math.round((qCount / userMsgs.length) * 100) : 0;
+            const convFocus = userMsgs.length > 0 ? Math.min(100, Math.round((userMsgs.filter(m => m.content.split(/\s+/).length >= 5).length / userMsgs.length) * 100)) : 0;
+            return {
+                threadId: t.threadId,
+                title: t.title || "New Chat",
+                messageCount: msgs.length,
+                lastUpdated: t.updatedAt || new Date(),
+                analytics: {
+                    curiosityScore: convCuriosity,
+                    topicDrift: { focusLevel: convFocus }
+                }
+            };
+        });
+
         res.json({
             overview: {
                 totalConversations,
                 totalMessages,
-                curiosityScore: 75,
-                averageFocusLevel: 82
+                curiosityScore,
+                averageFocusLevel: focusLevel
             },
             overallAnalytics: {
-                curiosityScore: 75,
-                topicDrift: { score: 18, focusLevel: 82 },
-                confidencePattern: 68,
-                knowledgeGrowth: 45
+                curiosityScore,
+                topicDrift: { score: 100 - focusLevel, focusLevel },
+                confidencePattern,
+                knowledgeGrowth: totalMessages
             },
             recentConversations,
-            knowledgeGrowth: [],
-            learningStreak: 3,
-            topicDistribution: [
-                { topic: "general", count: totalConversations, percentage: 100 }
-            ]
+            knowledgeGrowth: allThreads.map((t, i) => ({
+                date: t.updatedAt || new Date(),
+                score: Math.min(100, (t.messages?.length || 0) * 10)
+            })),
+            learningStreak: Math.min(totalConversations, 7),
+            topicDistribution: topicDistribution.length > 0 ? topicDistribution : [{ topic: "general", count: 0, percentage: 0 }]
         });
     } catch (error) {
         console.error("❌ Analytics error:", error);

@@ -32,12 +32,10 @@ function Sidebar({ isOpen, onClose }) {
         getAllThreads();
     }, [currThreadId, refreshTrigger]);
     
-    // Refresh thread list when prevChats changes (new message sent)
+    // Refresh thread list after every new message
     useEffect(() => {
-        if (prevChats.length > 0) {
-            getAllThreads();
-        }
-    }, [prevChats.length]);
+        getAllThreads();
+    }, [prevChats]);
 
     const createNewChat = () => {
         setNewChat(true);
