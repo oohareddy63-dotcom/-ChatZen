@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import API_URL from "../../config";
+
 function Dashboard({ onBackToChat }) {
     const [analytics, setAnalytics] = useState(null);
     const [loading, setLoading] = useState(true);
