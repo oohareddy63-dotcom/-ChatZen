@@ -7,7 +7,6 @@ import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import {MyContext} from "./MyContext.jsx";
 import { useState, useEffect } from 'react';
 import {v1 as uuidv1} from "uuid";
-
 function App() {
   const [prompt, setPrompt] = useState("");
   const [reply, setReply] = useState(null);
@@ -16,11 +15,9 @@ function App() {
   const [newChat, setNewChat] = useState(true);
   const [allThreads, setAllThreads] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
   // Auth state
   const [user, setUser] = useState(null);
   const [authView, setAuthView] = useState("login"); // "login", "signup", "chat", "dashboard"
-
   // Check for existing session on mount
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
