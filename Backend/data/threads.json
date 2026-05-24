@@ -8,7 +8,6 @@
         "content": "Hello, this is a test message",
         "timestamp": "2026-02-12T13:06:22.095Z"
       },
-      
       {
         "role": "assistant",
         "content": "Demo mode activated: I received your message 'Hello, this is a test message'. Replace the demo API key with your real OpenAI key for actual AI responses.",
