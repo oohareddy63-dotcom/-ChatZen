@@ -33,13 +33,11 @@ function Dashboard({ onBackToChat }) {
         if (score >= 40) return "#f59e0b";
         return "#ef4444";
     };
-
     const getScoreLabel = (score) => {
         if (score >= 70) return "High";
         if (score >= 40) return "Moderate";
         return "Low";
     };
-
     if (loading) {
         return (
             <div className="dashboard-container">
